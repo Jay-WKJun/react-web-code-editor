@@ -1,0 +1,27 @@
+{
+	"compilerOptions": {
+		"module": "esnext",
+		"target": "es5",
+		"outDir": "build/dist",
+		"rootDir": "src",
+		"removeComments": true,
+		"strictNullChecks": true,
+		"noImplicitAny": true,
+		"noImplicitThis": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"noFallthroughCasesInSwitch": true,
+		"allowJs": true,
+		"allowSyntheticDefaultImports": true,
+		"jsx": "react",
+		"baseUrl": ".",
+		"paths": {
+			"*": [
+				"node_modules/*",
+			],
+		}
+	},
+	"exclude": [
+		"node_modules",
+	]
+}
