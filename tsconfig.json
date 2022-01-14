@@ -3,7 +3,7 @@
 		"module": "esnext",
 		"target": "es5",
 		"outDir": "build/dist",
-		"rootDir": "src",
+		"rootDir": ".",
 		"removeComments": true,
 		"strictNullChecks": true,
 		"noImplicitAny": true,
@@ -16,9 +16,8 @@
 		"jsx": "react",
 		"baseUrl": ".",
 		"paths": {
-			"*": [
-				"node_modules/*",
-			],
+			"@/*": ["src/*"],
+			"*": ["node_modules/*"],
 		}
 	},
 	"exclude": [

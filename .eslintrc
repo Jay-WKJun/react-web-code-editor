@@ -11,6 +11,22 @@
 		"allowIndentationTabs": 0,
 		"indent": [0, "tab"],
 		"react/jsx-indent": [1, "tab", { "indentLogicalExpressions": true }],
-		"react/jsx-filename-extension": [1, { "extensions": [".jsx", ".tsx"] }]
+		"react/jsx-filename-extension": [1, { "extensions": [".jsx", ".tsx"] }],
+		"import/extensions": ["off"]
+	},
+	"settings": {
+		"import/parsers": {
+			"@typescript-eslint/parser": [".ts", ".tsx"]
+		},
+		"import/resolver": {
+			"typescript": {}
+		}
+	},
+	"parserOptions": {
+		"project": "./tsconfig.json"
+	},
+	"env": {
+		"browser": true,
+		"node": true
 	}
 }

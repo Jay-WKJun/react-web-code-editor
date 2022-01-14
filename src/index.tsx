@@ -1,11 +1,10 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 
-function Index() {
-	return (
-		<div>
-			simple code editor
-		</div>
-	);
-}
+import App from '@/Containers/App/App';
+import './index.css';
 
-export default Index;
+ReactDOM.render(
+  <App />,
+  document.getElementById('root'),
+);
