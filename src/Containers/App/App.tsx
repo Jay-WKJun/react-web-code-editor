@@ -15,6 +15,8 @@ const TextArea = styled.textarea`
 	width: inherit;
 	height: inherit;
 	padding: 10px;
+	z-index: 1;
+	-webkit-text-fill-color: transparent;
 `;
 
 const Pre = styled.pre`
@@ -22,7 +24,7 @@ const Pre = styled.pre`
 	padding: 10px;
 	width: inherit;
 	height: inherit;
-	margin: 0px;
+	margin: 0;
 	box-sizing: border-box;
 `;
 
@@ -30,7 +32,7 @@ function App() {
 	const [text, setText] = useState();
 
 	const handleTextChange = useCallback((e) => {
-		const value = e.currentTarget.value;
+		const { value } = e.currentTarget;
 		setText(value);
 	}, []);
 
