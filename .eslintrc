@@ -12,7 +12,8 @@
 		"indent": [0, "tab"],
 		"react/jsx-indent": [1, "tab", { "indentLogicalExpressions": true }],
 		"react/jsx-filename-extension": [1, { "extensions": [".jsx", ".tsx"] }],
-		"import/extensions": ["off"]
+		"import/extensions": ["off"],
+		"no-mixed-spaces-and-tabs": 0
 	},
 	"settings": {
 		"import/parsers": {
