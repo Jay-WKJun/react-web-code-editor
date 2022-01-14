@@ -13,26 +13,28 @@
   ],
   "author": "Woo KyungJun",
   "license": "MIT",
-	"dependencies": {
-		"react": "^17.0.2",
-		"react-dom": "^17.0.2"
-	},
+  "dependencies": {
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  },
   "devDependencies": {
     "@babel/preset-env": "^7.16.8",
     "@babel/preset-react": "^7.16.7",
     "@babel/preset-typescript": "^7.16.7",
     "@types/react": "^17.0.38",
     "@types/react-dom": "^17.0.11",
+    "@types/styled-components": "^5.1.20",
     "@typescript-eslint/eslint-plugin": "^5.9.1",
     "@typescript-eslint/parser": "^5.9.1",
+    "babel-plugin-styled-components": "^2.0.2",
     "css-loader": "^6.5.1",
     "eslint": "^8.6.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-import-resolver-typescript": "^2.5.0",
     "eslint-plugin-import": "^2.25.4",
     "html-webpack-plugin": "^5.5.0",
-    "sass-loader": "^12.4.0",
     "style-loader": "^3.3.1",
+    "styled-components": "^5.3.3",
     "ts-loader": "^9.2.6",
     "typescript": "^4.5.4",
     "webpack": "^5.66.0",
