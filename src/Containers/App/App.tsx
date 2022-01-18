@@ -7,6 +7,8 @@ const Wrapper = styled.div`
   min-height: 200px;
 	border: 1px solid black;
 	padding: 0;
+  font-size: 14px;
+  font-weight: 100;
 `;
 
 const TextArea = styled.textarea`
@@ -19,9 +21,11 @@ const TextArea = styled.textarea`
 	border: none;
 	z-index: 1;
 	resize: none;
+  font-size: inherit;
+  font-weight: inherit;
 	overflow: hidden;
 	background: transparent;
-	-webkit-text-fill-color: transparent;
+  -webkit-text-fill-color: transparent;
 `;
 
 const Pre = styled.pre`
@@ -35,6 +39,8 @@ const Pre = styled.pre`
 	white-space: pre-wrap;
 	word-break: break-all;
 	word-wrap: break-word;
+  font-size: inherit;
+  font-weight: inherit;
 `;
 
 function App() {
@@ -43,10 +49,6 @@ function App() {
 	const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
 	const handleTextChange = useCallback(() => {
-    if (textAreaRef.current) {
-      textAreaRef.current.selectionStart = 0;
-      textAreaRef.current.selectionEnd = 0;
-    }
 		if (textAreaRef.current) {
 			const textAreaElement = textAreaRef.current;
 			textAreaElement.style.height = `${textAreaElement.scrollHeight}px`;
@@ -68,6 +70,26 @@ function App() {
     }
 
     if (e.key === 'Shift') {
+      return;
+    }
+
+    if (e.key === 'Alt') {
+      return;
+    }
+
+    if (e.key === 'Control') {
+      return;
+    }
+
+    if (e.key === 'Meta') {
+      return;
+    }
+
+    if (e.key === 'CapsLock') {
+      return;
+    }
+
+    if (e.key === 'Tap') {
       return;
     }
 
