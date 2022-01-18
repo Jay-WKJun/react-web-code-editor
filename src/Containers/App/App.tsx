@@ -42,19 +42,56 @@ function App() {
 
 	const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
-	const handleTextChange = useCallback((e: React.ChangeEvent<HTMLTextAreaElement>) => {
-		const { value } = e.currentTarget;
-		setText(value);
-
+	const handleTextChange = useCallback(() => {
+    if (textAreaRef.current) {
+      textAreaRef.current.selectionStart = 0;
+      textAreaRef.current.selectionEnd = 0;
+    }
 		if (textAreaRef.current) {
 			const textAreaElement = textAreaRef.current;
 			textAreaElement.style.height = `${textAreaElement.scrollHeight}px`;
 		}
 	}, [textAreaRef]);
 
+  const handleKeyDown = useCallback((e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === 'Enter') {
+      setText(`${text}\n`);
+      return;
+    }
+
+    if (e.key === 'ArrowRight') {
+      return;
+    }
+
+    if (e.key === 'ArrowLeft') {
+      return;
+    }
+
+    if (e.key === 'Shift') {
+      return;
+    }
+
+    if (e.key === 'Backspace') {
+      setText((prevText) => prevText.slice(0, prevText.length - 1));
+      return;
+    }
+
+    if (e.key === '{') {
+      setText(`${text}{}`);
+      return;
+    }
+
+    setText(`${text}${e.key}`);
+  }, [text]);
+
   return (
     <Wrapper>
-      <TextArea ref={textAreaRef} value={text} onChange={handleTextChange} />
+      <TextArea
+        ref={textAreaRef}
+        value={text}
+        onChange={handleTextChange}
+        onKeyDown={handleKeyDown}
+      />
 	    <Pre>{text}</Pre>
     </Wrapper>
   );
