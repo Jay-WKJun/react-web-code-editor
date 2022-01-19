@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useRef } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
@@ -44,11 +44,12 @@ const Pre = styled.pre`
 `;
 
 function App() {
-	const [text, setText] = useState('');
+  const [value, setValue] = useState('');
 
 	const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
-	const handleTextChange = useCallback(() => {
+	const handleTextChange = useCallback((e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setValue(e.currentTarget.value);
 		if (textAreaRef.current) {
 			const textAreaElement = textAreaRef.current;
 			textAreaElement.style.height = `${textAreaElement.scrollHeight}px`;
@@ -56,17 +57,27 @@ function App() {
 	}, [textAreaRef]);
 
   const handleKeyDown = useCallback((e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    const caretStart = e.currentTarget.selectionStart;
+    const caretEnd = e.currentTarget.selectionEnd;
+    const val = e.currentTarget.value;
+
     if (e.key === 'Enter') {
-      setText(`${text}\n`);
+      e.currentTarget.value = (`${val}\n`);
       return;
     }
 
-    if (e.key === 'ArrowRight') {
-      return;
-    }
+    if (e.key === 'Backspace') {
+      // 삭제 기능
+      // 기존의 textArea backspace 기능 차단
+      e.preventDefault();
 
-    if (e.key === 'ArrowLeft') {
-      return;
+      // Drag하지 않은 상태에서 지우기 기능
+      // caret이 있는 위치 바로 전에 있는 단어를 하나 지운다.
+      const newText = val.substring(0, caretStart - 1) + val.substring(caretEnd);
+      e.currentTarget.value = newText;
+      e.currentTarget.selectionStart = caretStart - 1;
+      e.currentTarget.selectionEnd = caretEnd - 1;
+      setValue(e.currentTarget.value);
     }
 
     if (e.key === 'Shift') {
@@ -93,28 +104,20 @@ function App() {
       return;
     }
 
-    if (e.key === 'Backspace') {
-      setText((prevText) => prevText.slice(0, prevText.length - 1));
-      return;
-    }
-
     if (e.key === '{') {
-      setText(`${text}{}`);
-      return;
+      e.currentTarget.value = `${val}{}`;
     }
-
-    setText(`${text}${e.key}`);
-  }, [text]);
+  }, []);
 
   return (
     <Wrapper>
       <TextArea
         ref={textAreaRef}
-        value={text}
+        value={textAreaRef.current?.value}
         onChange={handleTextChange}
         onKeyDown={handleKeyDown}
       />
-	    <Pre>{text}</Pre>
+	    <Pre>{value}</Pre>
     </Wrapper>
   );
 }
