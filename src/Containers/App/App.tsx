@@ -66,20 +66,6 @@ function App() {
       return;
     }
 
-    if (e.key === 'Backspace') {
-      // 삭제 기능
-      // 기존의 textArea backspace 기능 차단
-      e.preventDefault();
-
-      // Drag하지 않은 상태에서 지우기 기능
-      // caret이 있는 위치 바로 전에 있는 단어를 하나 지운다.
-      const newText = val.substring(0, caretStart - 1) + val.substring(caretEnd);
-      e.currentTarget.value = newText;
-      e.currentTarget.selectionStart = caretStart - 1;
-      e.currentTarget.selectionEnd = caretEnd - 1;
-      setValue(e.currentTarget.value);
-    }
-
     if (e.key === 'Shift') {
       return;
     }
@@ -105,7 +91,12 @@ function App() {
     }
 
     if (e.key === '{') {
-      e.currentTarget.value = `${val}{}`;
+      e.preventDefault();
+      const newText = `${val.substring(0, caretStart)}{}${val.substring(caretEnd)}`;
+      e.currentTarget.value = newText;
+      e.currentTarget.selectionStart = caretStart + 1;
+      e.currentTarget.selectionEnd = caretEnd + 1;
+      setValue(e.currentTarget.value);
     }
   }, []);
 
@@ -113,7 +104,7 @@ function App() {
     <Wrapper>
       <TextArea
         ref={textAreaRef}
-        value={textAreaRef.current?.value}
+        value={value}
         onChange={handleTextChange}
         onKeyDown={handleKeyDown}
       />
