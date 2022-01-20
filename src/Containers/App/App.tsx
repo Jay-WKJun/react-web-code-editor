@@ -103,9 +103,37 @@ function App({ indent = 2 }: CodeEditorProps) {
       return;
     }
 
-    if (e.key === '{') {
+    if (/[{ | ( | [ | < | ' | " | `]/.test(e.key)) {
       e.preventDefault();
-      const newText = `${val.substring(0, caretStart)}{}${val.substring(caretEnd)}`;
+
+      let parenthesis = '';
+      switch (e.key) {
+        case '{':
+          parenthesis = '{}';
+          break;
+        case '(':
+          parenthesis = '()';
+          break;
+        case '[':
+          parenthesis = '[]';
+          break;
+        case '<':
+          parenthesis = '<>';
+          break;
+        case "'":
+          parenthesis = "''";
+          break;
+        case '"':
+          parenthesis = '""';
+          break;
+        case '`':
+          parenthesis = '``';
+          break;
+        default:
+          return;
+      };
+
+      const newText = `${val.substring(0, caretStart)}${parenthesis}${val.substring(caretEnd)}`;
       e.currentTarget.value = newText;
       e.currentTarget.selectionStart = caretStart + 1;
       e.currentTarget.selectionEnd = caretEnd + 1;
