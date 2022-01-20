@@ -62,27 +62,12 @@ function App() {
     const val = e.currentTarget.value;
 
     if (e.key === 'Enter') {
-      e.currentTarget.value = (`${val}\n`);
-      return;
-    }
-
-    if (e.key === 'Shift') {
-      return;
-    }
-
-    if (e.key === 'Alt') {
-      return;
-    }
-
-    if (e.key === 'Control') {
-      return;
-    }
-
-    if (e.key === 'Meta') {
-      return;
-    }
-
-    if (e.key === 'CapsLock') {
+      e.preventDefault();
+      const newText = `${val.substring(0, caretStart)}\n${val.substring(caretEnd)}`;
+      e.currentTarget.value = newText;
+      e.currentTarget.selectionStart = caretStart + 1;
+      e.currentTarget.selectionEnd = caretEnd + 1;
+      setValue(e.currentTarget.value);
       return;
     }
 
@@ -90,6 +75,7 @@ function App() {
       return;
     }
 
+    // bracket 닫히는 기능을 위해 이곳에서 해줘야 함
     if (e.key === '{') {
       e.preventDefault();
       const newText = `${val.substring(0, caretStart)}{}${val.substring(caretEnd)}`;
@@ -108,7 +94,7 @@ function App() {
         onChange={handleTextChange}
         onKeyDown={handleKeyDown}
       />
-	    <Pre>{value}</Pre>
+      <Pre>{value}</Pre>
     </Wrapper>
   );
 }
