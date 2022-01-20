@@ -46,7 +46,11 @@ const Pre = styled.pre`
 	word-wrap: break-word;
 `;
 
-function App() {
+interface CodeEditorProps {
+  indent?: number
+}
+
+function App({ indent = 2 }: CodeEditorProps) {
   const [value, setValue] = useState('');
 
 	const textAreaRef = useRef<HTMLTextAreaElement>(null);
@@ -89,11 +93,16 @@ function App() {
       return;
     }
 
-    if (e.key === 'Tap') {
+    if (e.key === 'Tab') {
+      e.preventDefault();
+      const newText = `${val.substring(0, caretStart)}${' '.repeat(indent)}${val.substring(caretEnd)}`;
+      e.currentTarget.value = newText;
+      e.currentTarget.selectionStart = caretStart + indent;
+      e.currentTarget.selectionEnd = caretEnd + indent;
+      setValue(e.currentTarget.value);
       return;
     }
 
-    // bracket 닫히는 기능을 위해 이곳에서 해줘야 함
     if (e.key === '{') {
       e.preventDefault();
       const newText = `${val.substring(0, caretStart)}{}${val.substring(caretEnd)}`;
@@ -102,7 +111,7 @@ function App() {
       e.currentTarget.selectionEnd = caretEnd + 1;
       setValue(e.currentTarget.value);
     }
-  }, []);
+  }, [indent]);
 
   return (
     <Wrapper>
