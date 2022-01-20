@@ -21,10 +21,13 @@ const TextArea = styled.textarea`
 	border: none;
 	z-index: 1;
 	resize: none;
+	overflow: hidden;
   font-size: inherit;
   font-weight: inherit;
-	overflow: hidden;
-	background: transparent;
+  white-space: pre-wrap;
+	word-break: break-all;
+	word-wrap: break-word;
+  background: transparent;
   -webkit-text-fill-color: transparent;
 `;
 
@@ -36,11 +39,11 @@ const Pre = styled.pre`
 	margin: 0;
   overflow: auto;
 	box-sizing: border-box;
+  font-size: inherit;
+  font-weight: inherit;
 	white-space: pre-wrap;
 	word-break: break-all;
 	word-wrap: break-word;
-  font-size: inherit;
-  font-weight: inherit;
 `;
 
 function App() {
@@ -63,10 +66,25 @@ function App() {
 
     if (e.key === 'Enter') {
       e.preventDefault();
-      const newText = `${val.substring(0, caretStart)}\n${val.substring(caretEnd)}`;
+
+      // caret이 위치한 줄의 indenting을 읽어낸다.
+      let current = caretStart - 1;
+      let whiteSpaceCount = 0;
+      while (current >= 0) {
+        const currentWord = val[current];
+
+        if (currentWord === '\n') break;
+
+        if (currentWord === ' ') whiteSpaceCount += 1;
+        else whiteSpaceCount = 0;
+
+        current -= 1;
+      }
+
+      const newText = `${val.substring(0, caretStart)}\n${val.substring(caretEnd).padStart(whiteSpaceCount, ' ')}`;
       e.currentTarget.value = newText;
-      e.currentTarget.selectionStart = caretStart + 1;
-      e.currentTarget.selectionEnd = caretEnd + 1;
+      e.currentTarget.selectionStart = caretStart + 1 + whiteSpaceCount;
+      e.currentTarget.selectionEnd = caretEnd + 1 + whiteSpaceCount;
       setValue(e.currentTarget.value);
       return;
     }
@@ -89,6 +107,10 @@ function App() {
   return (
     <Wrapper>
       <TextArea
+        autoCapitalize="none"
+        autoComplete="off"
+        autoFocus={false}
+        spellCheck={false}
         ref={textAreaRef}
         value={value}
         onChange={handleTextChange}
