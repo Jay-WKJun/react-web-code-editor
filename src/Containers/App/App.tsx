@@ -137,6 +137,20 @@ function App({ indent = 2 }: CodeEditorProps) {
       return;
     }
 
+    if (/[} | ) | \] | > | ' | " | `]/.test(e.key)) {
+      if (
+        (val[caretStart - 1]
+        && val[caretEnd])
+        && (checkBracketIsPaired(val[caretStart - 1], val[caretEnd])
+        || val[caretStart - 1] === val[caretEnd])
+      ) {
+        e.preventDefault();
+        e.currentTarget.selectionStart = caretStart + 1;
+        e.currentTarget.selectionEnd = caretEnd + 1;
+        return;
+      }
+    }
+
     if (/[{ | ( | [ | < | ' | " | `]/.test(e.key)) {
       e.preventDefault();
 
