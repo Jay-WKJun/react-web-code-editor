@@ -93,6 +93,16 @@ function App({ indent = 2 }: CodeEditorProps) {
       return;
     }
 
+    if (e.key === ' ') {
+      e.preventDefault();
+      const newText = `${val.substring(0, caretStart)}${' '}${val.substring(caretEnd)}`;
+      e.currentTarget.value = newText;
+      e.currentTarget.selectionStart = caretStart + 1;
+      e.currentTarget.selectionEnd = caretEnd + 1;
+      setValue(e.currentTarget.value);
+      return;
+    }
+
     if (e.key === 'Tab') {
       e.preventDefault();
       const newText = `${val.substring(0, caretStart)}${' '.repeat(indent)}${val.substring(caretEnd)}`;
@@ -131,7 +141,7 @@ function App({ indent = 2 }: CodeEditorProps) {
           break;
         default:
           return;
-      };
+      }
 
       const newText = `${val.substring(0, caretStart)}${parenthesis}${val.substring(caretEnd)}`;
       e.currentTarget.value = newText;
