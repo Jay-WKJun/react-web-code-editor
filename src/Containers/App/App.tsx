@@ -89,7 +89,7 @@ function App({ indent = 2 }: CodeEditorProps) {
         current -= 1;
       }
 
-      const newText = `${val.substring(0, caretStart)}\n${val.substring(caretEnd).padStart(whiteSpaceCount, ' ')}`;
+      const newText = `${val.substring(0, caretStart)}\n${' '.repeat(whiteSpaceCount)}${val.substring(caretEnd)}`;
       e.currentTarget.value = newText;
       e.currentTarget.selectionStart = caretStart + 1 + whiteSpaceCount;
       e.currentTarget.selectionEnd = caretEnd + 1 + whiteSpaceCount;
