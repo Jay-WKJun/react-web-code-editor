@@ -71,7 +71,6 @@ function App({ indent = 2 }: CodeEditorProps) {
     const caretStart = e.currentTarget.selectionStart;
     const caretEnd = e.currentTarget.selectionEnd;
     const val = e.currentTarget.value;
-    console.log(caretStart, caretEnd);
 
     if (e.key === 'Enter') {
       e.preventDefault();
@@ -93,7 +92,7 @@ function App({ indent = 2 }: CodeEditorProps) {
       const newText = `${val.substring(0, caretStart)}\n${' '.repeat(whiteSpaceCount)}${val.substring(caretEnd)}`;
       e.currentTarget.value = newText;
       e.currentTarget.selectionStart = caretStart + 1 + whiteSpaceCount;
-      e.currentTarget.selectionEnd = caretEnd + 1 + whiteSpaceCount;
+      e.currentTarget.selectionEnd = caretStart + 1 + whiteSpaceCount;
       setValue(e.currentTarget.value);
       return;
     }
