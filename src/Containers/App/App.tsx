@@ -1,6 +1,17 @@
 import React, { useCallback, useRef, useState } from 'react';
 import styled from 'styled-components';
 
+import {
+  QUOTE,
+  BACKTICK,
+  BRACE_OPEN,
+  BRACKET_OPEN,
+  CHEVRON_OPEN,
+  DOUBLE_QUOTE,
+  PARENTHESIS_OPEN,
+  checkBracketIsPaired,
+} from './bracketMap';
+
 const Wrapper = styled.div`
   position: relative;
   width: 200px;
@@ -89,6 +100,15 @@ function App({ indent = 2 }: CodeEditorProps) {
         current -= 1;
       }
 
+      if (checkBracketIsPaired(val[caretStart - 1], val[caretEnd])) {
+        const newText = `${val.substring(0, caretStart)}\n${' '.repeat(whiteSpaceCount + indent)}\n${' '.repeat(whiteSpaceCount)}${val.substring(caretEnd)}`;
+        e.currentTarget.value = newText;
+        e.currentTarget.selectionStart = caretStart + 1 + whiteSpaceCount + indent;
+        e.currentTarget.selectionEnd = caretStart + 1 + whiteSpaceCount + indent;
+        setValue(e.currentTarget.value);
+        return;
+      }
+
       const newText = `${val.substring(0, caretStart)}\n${' '.repeat(whiteSpaceCount)}${val.substring(caretEnd)}`;
       e.currentTarget.value = newText;
       e.currentTarget.selectionStart = caretStart + 1 + whiteSpaceCount;
@@ -126,25 +146,25 @@ function App({ indent = 2 }: CodeEditorProps) {
       }
 
       switch (e.key) {
-        case '{':
+        case BRACE_OPEN:
           parenthesis = `{${parenthesis}}`;
           break;
-        case '(':
+        case PARENTHESIS_OPEN:
           parenthesis = `(${parenthesis})`;
           break;
-        case '[':
+        case BRACKET_OPEN:
           parenthesis = `[${parenthesis}]`;
           break;
-        case '<':
+        case CHEVRON_OPEN:
           parenthesis = `<${parenthesis}>`;
           break;
-        case "'":
+        case QUOTE:
           parenthesis = `'${parenthesis}'`;
           break;
-        case '"':
+        case DOUBLE_QUOTE:
           parenthesis = `"${parenthesis}"`;
           break;
-        case '`':
+        case BACKTICK:
           parenthesis = `\`${parenthesis}\``;
           break;
         default:
