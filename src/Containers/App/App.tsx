@@ -71,6 +71,7 @@ function App({ indent = 2 }: CodeEditorProps) {
     const caretStart = e.currentTarget.selectionStart;
     const caretEnd = e.currentTarget.selectionEnd;
     const val = e.currentTarget.value;
+    console.log(caretStart, caretEnd);
 
     if (e.key === 'Enter') {
       e.preventDefault();
@@ -121,27 +122,31 @@ function App({ indent = 2 }: CodeEditorProps) {
       e.preventDefault();
 
       let parenthesis = '';
+      if (caretStart !== caretEnd) {
+        parenthesis = val.substring(caretStart, caretEnd);
+      }
+
       switch (e.key) {
         case '{':
-          parenthesis = '{}';
+          parenthesis = `{${parenthesis}}`;
           break;
         case '(':
-          parenthesis = '()';
+          parenthesis = `(${parenthesis})`;
           break;
         case '[':
-          parenthesis = '[]';
+          parenthesis = `[${parenthesis}]`;
           break;
         case '<':
-          parenthesis = '<>';
+          parenthesis = `<${parenthesis}>`;
           break;
         case "'":
-          parenthesis = "''";
+          parenthesis = `'${parenthesis}'`;
           break;
         case '"':
-          parenthesis = '""';
+          parenthesis = `"${parenthesis}"`;
           break;
         case '`':
-          parenthesis = '``';
+          parenthesis = `\`${parenthesis}\``;
           break;
         default:
           return;
