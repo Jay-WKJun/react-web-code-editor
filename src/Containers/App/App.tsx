@@ -29,6 +29,10 @@ const TextArea = styled.textarea`
 	word-wrap: break-word;
   background: transparent;
   -webkit-text-fill-color: transparent;
+
+  &:focus {
+    outline: none;
+  }
 `;
 
 const Pre = styled.pre`
