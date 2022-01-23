@@ -3,7 +3,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-	entry: './src/index.tsx',
+	entry: './dev/index.tsx',
 	output: {
 		path: path.resolve(__dirname, 'dist'),
 		filename: 'index.js',
@@ -43,6 +43,6 @@ module.exports = {
 		open: true,
 	},
 	plugins: [
-		new HtmlWebpackPlugin({ template: path.resolve(__dirname, 'src', 'index.html') }),
+		new HtmlWebpackPlugin({ template: path.resolve(__dirname, 'dev', 'index.html') }),
 	],
 };
