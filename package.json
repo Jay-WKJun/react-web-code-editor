@@ -2,10 +2,12 @@
   "name": "simple-code-editor",
   "version": "0.0.1",
   "description": "plain and simple code editor with React",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
-    "start": "webpack serve --mode development",
-    "build": "webpack --mode production"
+    "start": "webpack serve --open --config webpack.dev.js",
+    "build": "webpack --config webpack.prod.js"
   },
   "keywords": [
     "codeEditor",
@@ -15,7 +17,7 @@
   "license": "MIT",
   "dependencies": {
     "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "styled-component": "^2.8.0"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.16.8",
@@ -27,12 +29,14 @@
     "@typescript-eslint/eslint-plugin": "^5.9.1",
     "@typescript-eslint/parser": "^5.9.1",
     "babel-plugin-styled-components": "^2.0.2",
+    "clean-webpack-plugin": "^4.0.0",
     "css-loader": "^6.5.1",
     "eslint": "^8.6.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-import-resolver-typescript": "^2.5.0",
     "eslint-plugin-import": "^2.25.4",
     "html-webpack-plugin": "^5.5.0",
+    "react-dom": "^17.0.2",
     "style-loader": "^3.3.1",
     "styled-components": "^5.3.3",
     "ts-loader": "^9.2.6",
