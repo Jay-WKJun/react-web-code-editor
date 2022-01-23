@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import App from '@/Index';
+import CodeEditor from '@/CodeEditor';
 import './index.css';
 
 ReactDOM.render(
-  <App />,
+  <CodeEditor />,
   document.getElementById('root'),
 );
