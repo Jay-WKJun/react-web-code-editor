@@ -1,5 +1,8 @@
 import React, { useCallback, useRef, useState } from 'react';
 import styled from 'styled-components';
+import { highlight, languages } from 'prismjs/prism';
+import 'prismjs/components/prism-javascript';
+import 'prismjs/themes/prism.css';
 
 import {
   QUOTE,
@@ -205,7 +208,8 @@ function CodeEditor({ indent = 2 }: CodeEditorProps) {
         onChange={handleTextChange}
         onKeyDown={handleKeyDown}
       />
-      <Pre>{value}</Pre>
+      { /* @ts-ignore */ }
+      <Pre dangerouslySetInnerHTML={{ __html: highlight(value, languages.javascript, 'javascript') }} />
     </Wrapper>
   );
 }
