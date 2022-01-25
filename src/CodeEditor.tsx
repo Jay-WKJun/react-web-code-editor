@@ -4,16 +4,7 @@ import { highlight, languages } from 'prismjs/prism';
 import 'prismjs/components/prism-javascript';
 import 'prismjs/themes/prism.css';
 
-import {
-  QUOTE,
-  BACKTICK,
-  BRACE_OPEN,
-  BRACKET_OPEN,
-  CHEVRON_OPEN,
-  DOUBLE_QUOTE,
-  PARENTHESIS_OPEN,
-  checkBracketIsPaired,
-} from './bracketMap';
+import TextAreaEditor from './TextAreaEditor';
 
 const Wrapper = styled.div`
   position: relative;
@@ -82,117 +73,68 @@ function CodeEditor({ indent = 2 }: CodeEditorProps) {
 	}, [textAreaRef]);
 
   const handleKeyDown = useCallback((e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    const caretStart = e.currentTarget.selectionStart;
-    const caretEnd = e.currentTarget.selectionEnd;
-    const val = e.currentTarget.value;
+    const {
+      selectionEnd: caretEnd,
+      selectionStart: caretStart,
+      value,
+    } = e.currentTarget;
+    const textAreaEditor = new TextAreaEditor(e.currentTarget, value, caretStart, caretEnd);
 
     if (e.key === 'Enter') {
       e.preventDefault();
+      const currentLineIndent = textAreaEditor.getCurrentLineIndentation();
 
-      // caret이 위치한 줄의 indenting을 읽어낸다.
-      let current = caretStart - 1;
-      let whiteSpaceCount = 0;
-      while (current >= 0) {
-        const currentWord = val[current];
-
-        if (currentWord === '\n') break;
-
-        if (currentWord === ' ') whiteSpaceCount += 1;
-        else whiteSpaceCount = 0;
-
-        current -= 1;
-      }
-
-      if (checkBracketIsPaired(val[caretStart - 1], val[caretEnd])) {
-        const newText = `${val.substring(0, caretStart)}\n${' '.repeat(whiteSpaceCount + indent)}\n${' '.repeat(whiteSpaceCount)}${val.substring(caretEnd)}`;
-        e.currentTarget.value = newText;
-        e.currentTarget.selectionStart = caretStart + 1 + whiteSpaceCount + indent;
-        e.currentTarget.selectionEnd = caretStart + 1 + whiteSpaceCount + indent;
-        setValue(e.currentTarget.value);
+      if (textAreaEditor.isCaretSurroundedByBracket()) {
+        const newText = textAreaEditor.getNewText(
+          `\n${' '.repeat(currentLineIndent + indent)}\n${' '.repeat(currentLineIndent)}`,
+        );
+        const newCaretPosition = caretStart + 1 + currentLineIndent + indent;
+        textAreaEditor.setNewText(newText, newCaretPosition, newCaretPosition);
+        setValue(newText);
         return;
       }
 
-      const newText = `${val.substring(0, caretStart)}\n${' '.repeat(whiteSpaceCount)}${val.substring(caretEnd)}`;
-      e.currentTarget.value = newText;
-      e.currentTarget.selectionStart = caretStart + 1 + whiteSpaceCount;
-      e.currentTarget.selectionEnd = caretStart + 1 + whiteSpaceCount;
-      setValue(e.currentTarget.value);
+      const newText = textAreaEditor.getNewText(`\n${' '.repeat(currentLineIndent)}`);
+      const newCaretPosition = caretStart + 1 + currentLineIndent;
+      textAreaEditor.setNewText(newText, newCaretPosition, newCaretPosition);
+      setValue(newText);
       return;
     }
 
     if (e.key === ' ') {
       e.preventDefault();
-      const newText = `${val.substring(0, caretStart)}${' '}${val.substring(caretEnd)}`;
-      e.currentTarget.value = newText;
-      e.currentTarget.selectionStart = caretStart + 1;
-      e.currentTarget.selectionEnd = caretEnd + 1;
-      setValue(e.currentTarget.value);
+      const newText = textAreaEditor.getNewText(' ');
+      textAreaEditor.setNewText(newText, caretStart + 1, caretEnd + 1);
+      setValue(newText);
       return;
     }
 
     if (e.key === 'Tab') {
       e.preventDefault();
-      const newText = `${val.substring(0, caretStart)}${' '.repeat(indent)}${val.substring(caretEnd)}`;
-      e.currentTarget.value = newText;
-      e.currentTarget.selectionStart = caretStart + indent;
-      e.currentTarget.selectionEnd = caretEnd + indent;
-      setValue(e.currentTarget.value);
+      const newText = textAreaEditor.getNewText(' '.repeat(indent));
+      textAreaEditor.setNewText(newText, caretStart + indent, caretEnd + indent);
+      setValue(newText);
       return;
     }
 
     if (/[} | ) | \] | > | ' | " | `]/.test(e.key)) {
-      if (
-        (val[caretStart - 1]
-        && val[caretEnd])
-        && (checkBracketIsPaired(val[caretStart - 1], val[caretEnd])
-        || val[caretStart - 1] === val[caretEnd])
-      ) {
+      if (textAreaEditor.isParenthesisPaired()) {
         e.preventDefault();
-        e.currentTarget.selectionStart = caretStart + 1;
-        e.currentTarget.selectionEnd = caretEnd + 1;
+        textAreaEditor.setCaretPosition(caretStart + 1, caretEnd + 1);
         return;
       }
     }
 
     if (/[{ | ( | [ | < | ' | " | `]/.test(e.key)) {
       e.preventDefault();
-
-      let parenthesis = '';
-      if (caretStart !== caretEnd) {
-        parenthesis = val.substring(caretStart, caretEnd);
-      }
-
-      switch (e.key) {
-        case BRACE_OPEN:
-          parenthesis = `{${parenthesis}}`;
-          break;
-        case PARENTHESIS_OPEN:
-          parenthesis = `(${parenthesis})`;
-          break;
-        case BRACKET_OPEN:
-          parenthesis = `[${parenthesis}]`;
-          break;
-        case CHEVRON_OPEN:
-          parenthesis = `<${parenthesis}>`;
-          break;
-        case QUOTE:
-          parenthesis = `'${parenthesis}'`;
-          break;
-        case DOUBLE_QUOTE:
-          parenthesis = `"${parenthesis}"`;
-          break;
-        case BACKTICK:
-          parenthesis = `\`${parenthesis}\``;
-          break;
-        default:
-          return;
-      }
-
-      const newText = `${val.substring(0, caretStart)}${parenthesis}${val.substring(caretEnd)}`;
-      e.currentTarget.value = newText;
-      e.currentTarget.selectionStart = caretStart + 1;
-      e.currentTarget.selectionEnd = caretEnd + 1;
-      setValue(e.currentTarget.value);
+      const parenthesis = textAreaEditor.getParenthesis(e.key);
+      const newText = textAreaEditor.getNewText(parenthesis);
+      textAreaEditor.setNewText(
+        newText,
+        caretStart + 1,
+        caretEnd + 1,
+      );
+      setValue(newText);
     }
   }, [indent]);
 
