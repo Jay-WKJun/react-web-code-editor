@@ -14,7 +14,8 @@
 		"react/jsx-filename-extension": [1, { "extensions": [".jsx", ".tsx"] }],
 		"import/extensions": ["off"],
 		"no-mixed-spaces-and-tabs": 0,
-    "import/no-extraneous-dependencies": ["off"]
+    "import/no-extraneous-dependencies": ["off"],
+    "lines-between-class-members": ["off"]
 	},
 	"settings": {
 		"import/parsers": {
