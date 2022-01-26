@@ -4,8 +4,8 @@ class Histroy {
   timeout: ReturnType<typeof setTimeout> | null;
 
   constructor() {
-    this.history = [];
-    this.index = -1;
+    this.history = [''];
+    this.index = 0;
     this.timeout = null;
   }
 
@@ -16,15 +16,20 @@ class Histroy {
     }
 
     this.timeout = setTimeout(() => {
-      this.history = this.history.slice(0, this.index + 1);
+      if (this.index === 29) {
+        this.history = this.history.slice(1, this.index + 1);
+        this.index -= 1;
+      } else {
+        this.history = this.history.slice(0, this.index + 1);
+      }
       this.history.push(currentText);
       this.index += 1;
       this.timeout = null;
-    }, 100);
+    }, 200);
   }
 
   goBack(): string {
-    if (this.history.length <= 0) return '';
+    if (this.index <= 0) return this.history[0];
 
     this.index -= 1;
     return this.history[this.index] as string;
