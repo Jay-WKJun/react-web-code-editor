@@ -8,6 +8,9 @@ export const Wrapper = styled.div`
 	padding: 0;
   font-size: 14px;
   font-weight: 100;
+  color: ${(props) => props.theme.textColor};
+  background-color: ${(props) => props.theme.backgroundColor};
+  caret-color: ${(props) => props.theme.caretColor};
 `;
 
 export const TextArea = styled.textarea`
@@ -47,4 +50,6 @@ export const Pre = styled.pre`
 	white-space: pre-wrap;
 	word-break: break-all;
 	word-wrap: break-word;
+
+  ${(props) => props.theme.keywords}
 `;

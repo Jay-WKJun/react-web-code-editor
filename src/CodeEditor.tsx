@@ -1,8 +1,9 @@
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useRef, useState, useMemo } from 'react';
+import { ThemeProvider } from 'styled-components';
 import { highlight, languages } from 'prismjs/prism';
 import 'prismjs/components/prism-javascript';
-import 'prismjs/themes/prism.css';
 
+import themes from './themes';
 import History from './History';
 import TextAreaEditor from './TextAreaEditor';
 import {
@@ -11,15 +12,19 @@ import {
   TextArea,
 } from './styles';
 
+type themeList = keyof typeof themes;
+
 interface CodeEditorProps {
   indent?: number
+  mode?: themeList
 }
 
-function CodeEditor({ indent = 2 }: CodeEditorProps) {
+function CodeEditor({ indent = 2, mode = 'dark' }: CodeEditorProps) {
   const [value, setValue] = useState('');
 
 	const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
+  const theme = useMemo(() => themes[mode], [mode]);
 	const handleTextChange = useCallback((e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setValue(e.currentTarget.value);
     History.push(e.currentTarget.value);
@@ -109,20 +114,22 @@ function CodeEditor({ indent = 2 }: CodeEditorProps) {
   }, [indent]);
 
   return (
-    <Wrapper>
-      <TextArea
-        autoCapitalize="none"
-        autoComplete="off"
-        autoFocus={false}
-        spellCheck={false}
-        ref={textAreaRef}
-        value={value}
-        onChange={handleTextChange}
-        onKeyDown={handleKeyDown}
-      />
-      { /* @ts-ignore */ }
-      <Pre dangerouslySetInnerHTML={{ __html: highlight(value, languages.javascript, 'javascript') }} />
-    </Wrapper>
+    <ThemeProvider theme={theme}>
+      <Wrapper>
+        <TextArea
+          autoCapitalize="none"
+          autoComplete="off"
+          autoFocus={false}
+          spellCheck={false}
+          ref={textAreaRef}
+          value={value}
+          onChange={handleTextChange}
+          onKeyDown={handleKeyDown}
+        />
+        { /* @ts-ignore */ }
+        <Pre dangerouslySetInnerHTML={{ __html: highlight(value, languages.javascript, 'javascript') }} />
+      </Wrapper>
+    </ThemeProvider>
   );
 }
 
