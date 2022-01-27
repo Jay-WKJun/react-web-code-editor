@@ -1,60 +1,15 @@
 import React, { useCallback, useRef, useState } from 'react';
-import styled from 'styled-components';
 import { highlight, languages } from 'prismjs/prism';
 import 'prismjs/components/prism-javascript';
 import 'prismjs/themes/prism.css';
 
 import History from './History';
 import TextAreaEditor from './TextAreaEditor';
-
-const Wrapper = styled.div`
-  position: relative;
-  width: 200px;
-  min-height: 200px;
-	border: 1px solid black;
-	padding: 0;
-  font-size: 14px;
-  font-weight: 100;
-`;
-
-const TextArea = styled.textarea`
-  position: absolute;
-  top: 0;
-  left: 0;
-	width: inherit;
-	min-height: inherit;
-	padding: 10px;
-	border: none;
-	z-index: 1;
-	resize: none;
-	overflow: hidden;
-  font-size: inherit;
-  font-weight: inherit;
-  white-space: pre-wrap;
-	word-break: break-all;
-	word-wrap: break-word;
-  background: transparent;
-  -webkit-text-fill-color: transparent;
-
-  &:focus {
-    outline: none;
-  }
-`;
-
-const Pre = styled.pre`
-  position: relative;
-	padding: 10px;
-	width: inherit;
-	height: inherit;
-	margin: 0;
-  overflow: auto;
-	box-sizing: border-box;
-  font-size: inherit;
-  font-weight: inherit;
-	white-space: pre-wrap;
-	word-break: break-all;
-	word-wrap: break-word;
-`;
+import {
+  Pre,
+  Wrapper,
+  TextArea,
+} from './styles';
 
 interface CodeEditorProps {
   indent?: number
@@ -78,9 +33,19 @@ function CodeEditor({ indent = 2 }: CodeEditorProps) {
     const {
       selectionEnd: caretEnd,
       selectionStart: caretStart,
-      value,
+      value: val,
     } = e.currentTarget;
-    const textAreaEditor = new TextAreaEditor(e.currentTarget, value, caretStart, caretEnd);
+    const textAreaEditor = new TextAreaEditor(e.currentTarget, val, caretStart, caretEnd);
+
+    function setNewText(
+      newText: string,
+      caretStartPosition: number,
+      caretEndPosition: number,
+    ) {
+      textAreaEditor.setNewText(newText, caretStartPosition, caretEndPosition);
+      setValue(newText);
+      History.push(newText);
+    }
 
     if (e.key === 'Enter') {
       e.preventDefault();
@@ -91,35 +56,27 @@ function CodeEditor({ indent = 2 }: CodeEditorProps) {
           `\n${' '.repeat(currentLineIndent + indent)}\n${' '.repeat(currentLineIndent)}`,
         );
         const newCaretPosition = caretStart + 1 + currentLineIndent + indent;
-        textAreaEditor.setNewText(newText, newCaretPosition, newCaretPosition);
-        setValue(newText);
-        History.push(e.currentTarget.value);
+        setNewText(newText, newCaretPosition, newCaretPosition);
         return;
       }
 
       const newText = textAreaEditor.getNewText(`\n${' '.repeat(currentLineIndent)}`);
       const newCaretPosition = caretStart + 1 + currentLineIndent;
-      textAreaEditor.setNewText(newText, newCaretPosition, newCaretPosition);
-      setValue(newText);
-      History.push(e.currentTarget.value);
+      setNewText(newText, newCaretPosition, newCaretPosition);
       return;
     }
 
     if (e.key === ' ') {
       e.preventDefault();
       const newText = textAreaEditor.getNewText(' ');
-      textAreaEditor.setNewText(newText, caretStart + 1, caretEnd + 1);
-      setValue(newText);
-      History.push(e.currentTarget.value);
+      setNewText(newText, caretStart + 1, caretEnd + 1);
       return;
     }
 
     if (e.key === 'Tab') {
       e.preventDefault();
       const newText = textAreaEditor.getNewText(' '.repeat(indent));
-      textAreaEditor.setNewText(newText, caretStart + indent, caretEnd + indent);
-      setValue(newText);
-      History.push(e.currentTarget.value);
+      setNewText(newText, caretStart + indent, caretEnd + indent);
       return;
     }
 
@@ -135,26 +92,18 @@ function CodeEditor({ indent = 2 }: CodeEditorProps) {
       e.preventDefault();
       const parenthesis = textAreaEditor.getParenthesis(e.key);
       const newText = textAreaEditor.getNewText(parenthesis);
-      textAreaEditor.setNewText(
-        newText,
-        caretStart + 1,
-        caretEnd + 1,
-      );
-      setValue(newText);
-      History.push(e.currentTarget.value);
+      setNewText(newText, caretStart + 1, caretEnd + 1);
     }
 
     if (e.ctrlKey && e.key.toLocaleLowerCase() === 'z') {
       let newText = '';
+
       if (e.shiftKey) newText = History.goForward();
       else newText = History.goBack();
+
       const newCaretPosition = newText.length;
 
-      textAreaEditor.setNewText(
-        newText,
-        newCaretPosition,
-        newCaretPosition,
-      );
+      textAreaEditor.setNewText(newText, newCaretPosition, newCaretPosition);
       setValue(newText);
     }
   }, [indent]);
