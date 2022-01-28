@@ -86,7 +86,7 @@ function CodeEditor({ indent = 2, mode = 'dark' }: CodeEditorProps) {
     }
 
     if (/[} | ) | \] | > | ' | " | `]/.test(e.key)) {
-      if (textAreaEditor.isParenthesisPaired()) {
+      if (textAreaEditor.isParenthesisPaired(e.key)) {
         e.preventDefault();
         textAreaEditor.setCaretPosition(caretStart + 1, caretEnd + 1);
         return;

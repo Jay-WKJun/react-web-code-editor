@@ -55,18 +55,19 @@ class TextAreaEditor {
     return this.currentText.substring(this.caretStart, this.caretEnd);
   }
 
-  isCaretSurroundedByBracket() {
-    const { currentText, caretStart, caretEnd } = this;
+  isCaretSurroundedByBracket(parenthsis = this.currentText[this.caretEnd]) {
+    const { currentText, caretStart } = this;
 
-    return checkBracketIsPaired(currentText[caretStart - 1], currentText[caretEnd]);
+    return checkBracketIsPaired(currentText[caretStart - 1], parenthsis);
   }
 
-  isParenthesisPaired() {
+  isParenthesisPaired(inputKey: string) {
     const { currentText, caretStart, caretEnd } = this;
 
     return (
-      ((currentText[caretStart - 1] && currentText[caretEnd]) && this.isCaretSurroundedByBracket())
-      || (currentText[caretStart - 1] === currentText[caretEnd])
+      ((currentText[caretStart - 1] && currentText[caretEnd])
+        && this.isCaretSurroundedByBracket(inputKey))
+      || (currentText[caretStart - 1] === inputKey)
     );
   }
 
