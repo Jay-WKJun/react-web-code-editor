@@ -1,7 +1,7 @@
 import React, { useCallback, useRef, useState, useMemo } from 'react';
 import { ThemeProvider } from 'styled-components';
 import { highlight, languages } from 'prismjs/prism';
-import 'prismjs/components/prism-javascript';
+import './languages';
 
 import themes from './themes';
 import History from './History';
@@ -13,18 +13,26 @@ import {
 } from './styles';
 
 type themeList = keyof typeof themes;
+type lang =
+  | 'typescript' | 'javascript' | 'java' | 'python' | 'rust'
+  | 'ruby' | 'swift' | 'r' | 'c' | 'cpp' | 'csharp'
+  | 'cobol' | 'kotlin' | 'haskell' | 'arduino' | 'coffeescript'
+  | 'clojure' | 'dart' | 'yaml' | 'markdown' | 'markup'
+  | 'docker' | 'graphql' | 'json' | 'css' | 'sass' | 'scss';
 
 interface CodeEditorProps {
   indent?: number
   mode?: themeList
+  language?: lang
 }
 
-function CodeEditor({ indent = 2, mode = 'dark' }: CodeEditorProps) {
+function CodeEditor({ indent = 2, mode = 'dark', language = 'javascript' }: CodeEditorProps) {
   const [value, setValue] = useState('');
 
 	const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
   const theme = useMemo(() => themes[mode], [mode]);
+
 	const handleTextChange = useCallback((e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setValue(e.currentTarget.value);
     History.push(e.currentTarget.value);
@@ -127,7 +135,13 @@ function CodeEditor({ indent = 2, mode = 'dark' }: CodeEditorProps) {
           onKeyDown={handleKeyDown}
         />
         { /* @ts-ignore */ }
-        <Pre dangerouslySetInnerHTML={{ __html: highlight(value, languages.javascript, 'javascript') }} />
+        <Pre dangerouslySetInnerHTML={{ __html: highlight(
+            value,
+            /* @ts-ignore */
+            languages[language],
+            language,
+          )}}
+        />
       </Wrapper>
     </ThemeProvider>
   );
