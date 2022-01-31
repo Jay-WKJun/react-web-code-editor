@@ -1,4 +1,15 @@
-const themes = {
+interface ThemeStyle {
+  backgroundColor: string
+  caretColor: string
+  textColor: string
+  keywords: string
+}
+
+interface Themes {
+  [key: string]: ThemeStyle
+}
+
+const themes: Themes = {
   dark: {
     backgroundColor: '#272822',
     caretColor: 'white',
@@ -157,5 +168,90 @@ const themes = {
     `
   },
 };
+
+interface ThemeProperties {
+  backgroundColor: string
+  caretColor: string
+  textColor: string
+  keywords: {
+    comment: string
+    prolog: string
+    doctype: string
+    cdata: string
+    puctuation: string
+    property: string
+    tag: string
+    constant: string
+    symbol: string
+    deleted: string
+    boolean: string
+    number: string
+    selector: string
+    ['attr-name']: string
+    string: string
+    char: string
+    builtin: string
+    inserted: string
+    operator: string
+    entity: string
+    url: string
+    ['language-css']: string
+    style: string
+    variable: string
+    atrule: string
+    ['attr-value']: string
+    function: string
+    ['class-name']: string
+    keyword: string
+    regex: string
+    important: string
+  }
+}
+
+function createThemeStyle(themeProperties: ThemeProperties): ThemeStyle {
+  const newTheme: ThemeStyle = {
+    backgroundColor: 'white',
+    caretColor: 'black',
+    textColor: 'black',
+    keywords: '',
+  };
+
+  newTheme.backgroundColor = themeProperties.backgroundColor;
+  newTheme.caretColor = themeProperties.caretColor;
+  newTheme.textColor = themeProperties.textColor;
+  const keywords = '';
+
+  Object.entries(themeProperties.keywords).forEach(([key, value]) => {
+    keywords.concat(`.token.${key} { color: ${value} }`);
+  });
+
+  keywords.concat(`
+    .language-css .token.string,
+    .style .token.string {
+      ${themeProperties.keywords['language-css']
+      || themeProperties.keywords.style}
+    }
+
+    .token.important,
+    .token.bold {
+      font-weight: bold;
+    }
+    .token.italic {
+      font-style: italic;
+    }
+
+    .token.entity {
+      cursor: help;
+    }
+  `);
+
+  newTheme.keywords = keywords;
+
+  return newTheme;
+}
+
+export function addTheme(themeName: string, themeProperties: ThemeProperties) {
+  themes[themeName] = createThemeStyle(themeProperties);
+}
 
 export default themes;
