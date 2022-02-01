@@ -1,15 +1,16 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
   mode: 'production',
-	entry: './src/CodeEditor.tsx',
+	entry: './src/index.ts',
 	output: {
 		path: path.resolve(__dirname, 'dist'),
-		filename: 'index.js',
+		filename: '[name].js',
+    publicPath: '/',
     library: {
-      name: 'light-code-editor',
+      name: 'web-code-editor',
       type: 'umd',
       export: 'default',
     },
@@ -27,24 +28,9 @@ module.exports = {
 				use: ['ts-loader'],
 				exclude: /node_modules/,
 			},
-      {
-				test: /\.css$/,
-				use: [
-					'style-loader',
-					'css-loader',
-				],
-			},
-			{
-				test: /\.s[ac]ss$/i,
-				use: [
-					'style-loader',
-					'css-loader',
-					'sass-loader',
-				],
-			},
-		],
+    ],
 	},
-  plugin: [
+  plugins: [
     new CleanWebpackPlugin(),
   ],
 };

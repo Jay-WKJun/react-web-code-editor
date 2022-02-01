@@ -1,7 +1,7 @@
 {
-  "name": "simple-code-editor",
+  "name": "react-web-code-editor",
   "version": "0.0.1",
-  "description": "plain and simple code editor with React",
+  "description": "plain and simple web code editor with React",
   "main": "dist/index.js",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -13,7 +13,7 @@
     "codeEditor",
     "React"
   ],
-  "author": "Woo KyungJun",
+  "author": "Woo KyungJun <natcho9010@gmail.com>",
   "license": "MIT",
   "dependencies": {
     "prismjs": "^1.26.0",

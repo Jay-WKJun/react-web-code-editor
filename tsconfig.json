@@ -2,7 +2,7 @@
 	"compilerOptions": {
 		"module": "esnext",
 		"target": "es5",
-		"outDir": "build/dist",
+		"outDir": "dist",
 		"rootDir": ".",
 		"removeComments": true,
 		"strictNullChecks": true,
@@ -14,6 +14,7 @@
 		"allowJs": true,
 		"allowSyntheticDefaultImports": true,
 		"jsx": "react",
+    "declaration": true,
 		"baseUrl": ".",
 		"paths": {
 			"@/*": ["src/*"],
