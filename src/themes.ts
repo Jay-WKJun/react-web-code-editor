@@ -178,7 +178,7 @@ interface ThemeProperties {
     prolog: string
     doctype: string
     cdata: string
-    puctuation: string
+    punctuation: string
     property: string
     tag: string
     constant: string
@@ -219,13 +219,13 @@ function createThemeStyle(themeProperties: ThemeProperties): ThemeStyle {
   newTheme.backgroundColor = themeProperties.backgroundColor;
   newTheme.caretColor = themeProperties.caretColor;
   newTheme.textColor = themeProperties.textColor;
-  const keywords = '';
+  let keywords = '';
 
   Object.entries(themeProperties.keywords).forEach(([key, value]) => {
-    keywords.concat(`.token.${key} { color: ${value} }`);
+    keywords = keywords.concat(`.token.${key} { color: ${value} }`);
   });
 
-  keywords.concat(`
+  keywords = keywords.concat(`
     .language-css .token.string,
     .style .token.string {
       ${themeProperties.keywords['language-css']
