@@ -88,7 +88,7 @@ const themes: Themes = {
       .token.entity {
         cursor: help;
       }
-    `
+    `,
   },
   light: {
     backgroundColor: 'white',
@@ -165,46 +165,74 @@ const themes: Themes = {
       .token.entity {
         cursor: help;
       }
-    `
+    `,
   },
 };
 
+type CssColorLiterals = 'AliceBlue' | 'AntiqueWhite' | 'Aqua' | 'Aquamarine' | 'Azure'
+  | 'Beige' | 'Bisque' | 'Black' | 'BlanchedAlmond' | 'Blue' | 'BlueViolet' | 'Brown'
+  | 'BurlyWood' | 'CadetBlue' | 'Chartreuse' | 'Chocolate' | 'Coral' | 'CornflowerBlue'
+  | 'Cornsilk' | 'Crimson' | 'Cyan' | 'DarkBlue' | 'DarkCyan' | 'DarkGoldenRod'
+  | 'DarkGray' | 'DarkGrey' | 'DarkGreen' | 'DarkKhaki' | 'DarkMagenta' | 'DarkOliveGreen'
+  | 'DarkOrange' | 'DarkOrchid' | 'DarkRed' | 'DarkSalmon' | 'DarkSeaGreen' | 'DarkSlateBlue'
+  | 'DarkSlateGray' | 'DarkSlateGrey' | 'DarkTurquoise' | 'DarkViolet' | 'DeepPink'
+  | 'DeepSkyBlue' | 'DimGray' | 'DimGrey' | 'DodgerBlue' | 'FireBrick' | 'FloralWhite'
+  | 'ForestGreen' | 'Fuchsia' | 'Gainsboro' | 'GhostWhite' | 'Gold' | 'GoldenRod'
+  | 'Gray' | 'Grey' | 'Green' | 'GreenYellow' | 'HoneyDew' | 'HotPink' | 'IndianRed'
+  | 'Indigo' | 'Ivory' | 'Khaki' | 'Lavender' | 'LavenderBlush' | 'LawnGreen' | 'LemonChiffon'
+  | 'LightBlue' | 'LightCoral' | 'LightCyan' | 'LightGoldenRodYellow' | 'LightGray'
+  | 'LightGrey' | 'LightGreen' | 'LightPink' | 'LightSalmon' | 'LightSeaGreen' | 'LightSkyBlue'
+  | 'LightSlateGray' | 'LightSlateGrey' | 'LightSteelBlue' | 'LightYellow' | 'Lime'
+  | 'LimeGreen' | 'Linen' | 'Magenta' | 'Maroon' | 'MediumAquaMarine' | 'MediumBlue'
+  | 'MediumOrchid' | 'MediumPurple' | 'MediumSeaGreen' | 'MediumSlateBlue'
+  | 'MediumSpringGreen' | 'MediumTurquoise' | 'MediumVioletRed' | 'MidnightBlue'
+  | 'MintCream' | 'MistyRose' | 'Moccasin' | 'NavajoWhite' | 'Navy' | 'OldLace'
+  | 'Olive' | 'OliveDrab' | 'Orange' | 'OrangeRed' | 'Orchid' | 'PaleGoldenRod'
+  | 'PaleGreen' | 'PaleTurquoise' | 'PaleVioletRed' | 'PapayaWhip' | 'PeachPuff'
+  | 'Peru' | 'Pink' | 'Plum' | 'PowderBlue' | 'Purple' | 'RebeccaPurple' | 'Red'
+  | 'RosyBrown' | 'RoyalBlue' | 'SaddleBrown' | 'Salmon' | 'SandyBrown' | 'SeaGreen'
+  | 'SeaShell' | 'Sienna' | 'Silver' | 'SkyBlue' | 'SlateBlue' | 'SlateGray' | 'SlateGrey'
+  | 'Snow' | 'SpringGreen' | 'SteelBlue' | 'Tan' | 'Teal' | 'Thistle' | 'Tomato'
+  | 'Turquoise' | 'Violet' | 'Wheat' | 'White' | 'WhiteSmoke' | 'Yellow' | 'YellowGreen';
+type HexColorCode = `#${number}`;
+type RGBColorCode = `rgb(${number},${number},${number})`;
+
 interface ThemeProperties {
-  backgroundColor: string
-  caretColor: string
-  textColor: string
+  backgroundColor: HexColorCode | RGBColorCode | CssColorLiterals
+  caretColor: HexColorCode | RGBColorCode | CssColorLiterals
+  textColor: HexColorCode | RGBColorCode | CssColorLiterals
   keywords: {
-    comment: string
-    prolog: string
-    doctype: string
-    cdata: string
-    punctuation: string
-    property: string
-    tag: string
-    constant: string
-    symbol: string
-    deleted: string
-    boolean: string
-    number: string
-    selector: string
-    ['attr-name']: string
-    string: string
-    char: string
-    builtin: string
-    inserted: string
-    operator: string
-    entity: string
-    url: string
-    ['language-css']: string
-    style: string
-    variable: string
-    atrule: string
-    ['attr-value']: string
-    function: string
-    ['class-name']: string
-    keyword: string
-    regex: string
-    important: string
+    comment: HexColorCode | RGBColorCode | CssColorLiterals
+    prolog: HexColorCode | RGBColorCode | CssColorLiterals
+    doctype: HexColorCode | RGBColorCode | CssColorLiterals
+    cdata: HexColorCode | RGBColorCode | CssColorLiterals
+    punctuation: HexColorCode | RGBColorCode | CssColorLiterals
+    property: HexColorCode | RGBColorCode | CssColorLiterals
+    tag: HexColorCode | RGBColorCode | CssColorLiterals
+    constant: HexColorCode | RGBColorCode | CssColorLiterals
+    symbol: HexColorCode | RGBColorCode | CssColorLiterals
+    deleted: HexColorCode | RGBColorCode | CssColorLiterals
+    boolean: HexColorCode | RGBColorCode | CssColorLiterals
+    number: HexColorCode | RGBColorCode | CssColorLiterals
+    selector: HexColorCode | RGBColorCode | CssColorLiterals
+    ['attr-name']: HexColorCode | RGBColorCode | CssColorLiterals
+    string: HexColorCode | RGBColorCode | CssColorLiterals
+    char: HexColorCode | RGBColorCode | CssColorLiterals
+    builtin: HexColorCode | RGBColorCode | CssColorLiterals
+    inserted: HexColorCode | RGBColorCode | CssColorLiterals
+    operator: HexColorCode | RGBColorCode | CssColorLiterals
+    entity: HexColorCode | RGBColorCode | CssColorLiterals
+    url: HexColorCode | RGBColorCode | CssColorLiterals
+    ['language-css']: HexColorCode | RGBColorCode | CssColorLiterals
+    style: HexColorCode | RGBColorCode | CssColorLiterals
+    variable: HexColorCode | RGBColorCode | CssColorLiterals
+    atrule: HexColorCode | RGBColorCode | CssColorLiterals
+    ['attr-value']: HexColorCode | RGBColorCode | CssColorLiterals
+    function: HexColorCode | RGBColorCode | CssColorLiterals
+    ['class-name']: HexColorCode | RGBColorCode | CssColorLiterals
+    keyword: HexColorCode | RGBColorCode | CssColorLiterals
+    regex: HexColorCode | RGBColorCode | CssColorLiterals
+    important: HexColorCode | RGBColorCode | CssColorLiterals
   }
 }
 
