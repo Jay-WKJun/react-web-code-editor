@@ -3,3 +3,6 @@
 
 # User-specific stuff
 .idea/
+
+# build stuff
+/dist

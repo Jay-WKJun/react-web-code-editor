@@ -1,20 +1,31 @@
 {
   "name": "react-web-code-editor",
-  "version": "0.0.1",
-  "description": "plain and simple web code editor with React",
-  "main": "dist/index.js",
-  "module": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "scripts": {
-    "start": "webpack serve --open --config webpack.dev.js",
-    "build": "webpack --config webpack.prod.js"
+  "version": "1.0.0",
+  "private": false,
+  "description": "A Simple and code-style Customizable web code editor with React",
+  "author": "Woo KyungJun <natcho9010@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Jay-WKJun/react-web-code-editor"
   },
   "keywords": [
     "codeEditor",
-    "React"
+    "React",
+    "editor",
+    "code",
+    "customizable",
+    "dark-mode",
+    "texteditor",
+    "textarea"
   ],
-  "author": "Woo KyungJun <natcho9010@gmail.com>",
-  "license": "MIT",
+  "scripts": {
+    "start": "webpack serve --open --config webpack.dev.js",
+    "build": "webpack --config webpack.prod.js && tsc"
+  },
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
   "dependencies": {
     "prismjs": "^1.26.0",
     "react": "^17.0.2",
@@ -30,6 +41,7 @@
     "@types/styled-components": "^5.1.20",
     "@typescript-eslint/eslint-plugin": "^5.9.1",
     "@typescript-eslint/parser": "^5.9.1",
+    "babel-loader": "^8.2.3",
     "babel-plugin-styled-components": "^2.0.2",
     "clean-webpack-plugin": "^4.0.0",
     "css-loader": "^6.5.1",
