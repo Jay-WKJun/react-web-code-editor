@@ -4,7 +4,7 @@
 
 ---example gif---
 
-<h3>Try this Code Editor now! in ___</h3>
+<h3>Try this Code Editor now! in CodeSandBox!</h3>
 
 # ⚙️ Features
 
