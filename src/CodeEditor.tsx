@@ -4,13 +4,16 @@ import React, {
   useMemo,
   forwardRef,
 } from 'react';
-import { ThemeProvider } from 'styled-components';
+import {
+  ThemeProvider,
+} from 'styled-components';
 import { highlight, languages } from 'prismjs/prism';
 import './languages';
 
 import themes from './themes';
 import History from './History';
 import TextAreaEditor from './TextAreaEditor';
+import useForwardedRef from './useForwardedRef';
 import {
   Pre,
   Wrapper,
@@ -35,21 +38,22 @@ const CodeEditor = forwardRef<HTMLTextAreaElement, CodeEditorProps>(({
   indent = 2,
   mode = 'dark',
   language = 'javascript',
-}, textAreaRef) => {
+}, ref) => {
+  const textAreaRef = useForwardedRef(ref);
   const [value, setValue] = useState('');
 
   const theme = useMemo(() => themes[mode], [mode]);
 
 	const handleTextChange = useCallback((e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const textAreaElement = e.currentTarget;
-
     setValue(textAreaElement.value);
     History.push(textAreaElement.value);
 
-		if (textAreaElement) {
-			textAreaElement.style.height = `${textAreaElement.scrollHeight}px`;
+    const textArea = textAreaRef.current;
+		if (textArea) {
+			textArea.style.height = `${textArea.scrollHeight}px`;
 		}
-	}, []);
+	}, [textAreaRef]);
 
   const handleKeyDown = useCallback((e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     const {
