@@ -1,6 +1,10 @@
-import styled from 'styled-components';
+import styled, { FlattenSimpleInterpolation } from 'styled-components';
 
-export const Wrapper = styled.div`
+interface WrapperProps {
+  interpolation?: FlattenSimpleInterpolation
+}
+
+export const Wrapper = styled.div<WrapperProps>`
   position: relative;
   width: 200px;
   min-height: 200px;
@@ -11,6 +15,8 @@ export const Wrapper = styled.div`
   color: ${(props) => props.theme.textColor};
   background-color: ${(props) => props.theme.backgroundColor};
   caret-color: ${(props) => props.theme.caretColor};
+
+  ${(props) => props.interpolation}
 `;
 
 export const TextArea = styled.textarea`

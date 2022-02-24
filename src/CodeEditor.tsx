@@ -6,6 +6,7 @@ import React, {
 } from 'react';
 import {
   ThemeProvider,
+  FlattenSimpleInterpolation,
 } from 'styled-components';
 import { highlight, languages } from 'prismjs/prism';
 import './languages';
@@ -32,12 +33,16 @@ interface CodeEditorProps {
   indent?: number
   mode?: themeList
   language?: lang
+  className?: string
+  interpolation?: FlattenSimpleInterpolation
 }
 
 const CodeEditor = forwardRef<HTMLTextAreaElement, CodeEditorProps>(({
   indent = 2,
   mode = 'dark',
   language = 'javascript',
+  className,
+  interpolation,
 }, ref) => {
   const textAreaRef = useForwardedRef(ref);
   const [value, setValue] = useState('');
@@ -122,7 +127,10 @@ const CodeEditor = forwardRef<HTMLTextAreaElement, CodeEditorProps>(({
 
   return (
     <ThemeProvider theme={theme}>
-      <Wrapper>
+      <Wrapper
+        className={className}
+        interpolation={interpolation}
+      >
         <TextArea
           autoCapitalize="none"
           autoComplete="off"
