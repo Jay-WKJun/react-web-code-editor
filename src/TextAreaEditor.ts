@@ -52,6 +52,7 @@ class TextAreaEditor {
   }
 
   refreshTextAreaHeight() {
+    this.textArea.style.height = 'auto';
     this.textArea.style.height = `${this.textArea.scrollHeight}px`;
   }
 
