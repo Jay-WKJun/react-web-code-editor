@@ -1,8 +1,8 @@
 import React, {
   useCallback,
-  useRef,
   useState,
   useMemo,
+  forwardRef,
 } from 'react';
 import { ThemeProvider } from 'styled-components';
 import { highlight, languages } from 'prismjs/prism';
@@ -31,22 +31,25 @@ interface CodeEditorProps {
   language?: lang
 }
 
-function CodeEditor({ indent = 2, mode = 'dark', language = 'javascript' }: CodeEditorProps) {
+const CodeEditor = forwardRef<HTMLTextAreaElement, CodeEditorProps>(({
+  indent = 2,
+  mode = 'dark',
+  language = 'javascript',
+}, textAreaRef) => {
   const [value, setValue] = useState('');
-
-	const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
   const theme = useMemo(() => themes[mode], [mode]);
 
 	const handleTextChange = useCallback((e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setValue(e.currentTarget.value);
-    History.push(e.currentTarget.value);
+    const textAreaElement = e.currentTarget;
 
-    const textAreaElement = textAreaRef.current;
+    setValue(textAreaElement.value);
+    History.push(textAreaElement.value);
+
 		if (textAreaElement) {
 			textAreaElement.style.height = `${textAreaElement.scrollHeight}px`;
 		}
-	}, [textAreaRef]);
+	}, []);
 
   const handleKeyDown = useCallback((e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     const {
@@ -137,6 +140,6 @@ function CodeEditor({ indent = 2, mode = 'dark', language = 'javascript' }: Code
       </Wrapper>
     </ThemeProvider>
   );
-}
+});
 
 export default CodeEditor;
