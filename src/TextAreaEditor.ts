@@ -34,6 +34,8 @@ class TextAreaEditor {
     const currentLineIndent = this.getCurrentLineIndentation();
     const { indent, caretStart } = this;
 
+		this.refreshTextAreaHeight();
+
     if (this.isCaretSurroundedByBracket()) {
       const newText = this.getNewText(
         `\n${' '.repeat(currentLineIndent + indent)}\n${' '.repeat(currentLineIndent)}`,
@@ -49,6 +51,10 @@ class TextAreaEditor {
     this.setNewText(newText, newCaretPosition, newCaretPosition);
 
     return newText;
+  }
+
+  refreshTextAreaHeight() {
+    this.textArea.style.height = `${this.textArea.scrollHeight}px`;
   }
 
   executeSpaceAction() {
