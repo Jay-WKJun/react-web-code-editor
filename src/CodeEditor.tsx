@@ -81,6 +81,8 @@ const CodeEditor = forwardRef<HTMLTextAreaElement, CodeEditorProps>(({
       History.push(newText);
     }
 
+    textAreaEditor.refreshTextAreaHeight();
+
     if (e.key === 'Enter') {
       e.preventDefault();
       setNewText(textAreaEditor.executeEnterAction());

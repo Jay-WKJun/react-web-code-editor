@@ -34,8 +34,6 @@ class TextAreaEditor {
     const currentLineIndent = this.getCurrentLineIndentation();
     const { indent, caretStart } = this;
 
-		this.refreshTextAreaHeight();
-
     if (this.isCaretSurroundedByBracket()) {
       const newText = this.getNewText(
         `\n${' '.repeat(currentLineIndent + indent)}\n${' '.repeat(currentLineIndent)}`,
