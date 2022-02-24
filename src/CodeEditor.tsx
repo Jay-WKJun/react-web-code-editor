@@ -53,64 +53,51 @@ function CodeEditor({ indent = 2, mode = 'dark', language = 'javascript' }: Code
       selectionStart: caretStart,
       value: val,
     } = e.currentTarget;
-    const textAreaEditor = new TextAreaEditor(e.currentTarget, val, caretStart, caretEnd);
+    const textAreaEditor = new TextAreaEditor(
+      e.currentTarget,
+      val,
+      caretStart,
+      caretEnd,
+      indent,
+    );
 
     function setNewText(
       newText: string,
-      caretStartPosition: number,
-      caretEndPosition: number,
     ) {
-      textAreaEditor.setNewText(newText, caretStartPosition, caretEndPosition);
       setValue(newText);
       History.push(newText);
     }
 
     if (e.key === 'Enter') {
       e.preventDefault();
-      const currentLineIndent = textAreaEditor.getCurrentLineIndentation();
-
-      if (textAreaEditor.isCaretSurroundedByBracket()) {
-        const newText = textAreaEditor.getNewText(
-          `\n${' '.repeat(currentLineIndent + indent)}\n${' '.repeat(currentLineIndent)}`,
-        );
-        const newCaretPosition = caretStart + 1 + currentLineIndent + indent;
-        setNewText(newText, newCaretPosition, newCaretPosition);
-        return;
-      }
-
-      const newText = textAreaEditor.getNewText(`\n${' '.repeat(currentLineIndent)}`);
-      const newCaretPosition = caretStart + 1 + currentLineIndent;
-      setNewText(newText, newCaretPosition, newCaretPosition);
+      setNewText(textAreaEditor.executeEnterAction());
       return;
     }
 
     if (e.key === ' ') {
       e.preventDefault();
-      const newText = textAreaEditor.getNewText(' ');
-      setNewText(newText, caretStart + 1, caretEnd + 1);
+      setNewText(textAreaEditor.executeSpaceAction());
       return;
     }
 
     if (e.key === 'Tab') {
       e.preventDefault();
-      const newText = textAreaEditor.getNewText(' '.repeat(indent));
-      setNewText(newText, caretStart + indent, caretEnd + indent);
+      setNewText(textAreaEditor.executeTabAction());
       return;
     }
 
     if (/[} | ) | \] | > | ' | " | `]/.test(e.key)) {
       if (textAreaEditor.isParenthesisPaired(e.key)) {
         e.preventDefault();
-        textAreaEditor.setCaretPosition(caretStart + 1, caretEnd + 1);
+        textAreaEditor.executeBracketCloseAction();
         return;
       }
     }
 
     if (/[{ | ( | [ | < | ' | " | `]/.test(e.key)) {
       e.preventDefault();
-      const parenthesis = textAreaEditor.getParenthesis(e.key);
-      const newText = textAreaEditor.getNewText(parenthesis);
-      setNewText(newText, caretStart + 1, caretEnd + 1);
+      setNewText(textAreaEditor.executeBracketOpenAction(e.key));
+      return;
     }
 
     if (e.ctrlKey && e.key.toLocaleLowerCase() === 'z') {
@@ -120,7 +107,6 @@ function CodeEditor({ indent = 2, mode = 'dark', language = 'javascript' }: Code
       else newText = History.goBack();
 
       const newCaretPosition = newText.length;
-
       textAreaEditor.setNewText(newText, newCaretPosition, newCaretPosition);
       setValue(newText);
     }

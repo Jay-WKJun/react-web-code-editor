@@ -10,12 +10,80 @@ import {
 } from './bracketMap';
 
 class TextAreaEditor {
+  textArea: HTMLTextAreaElement;
+  currentText: string;
+  caretStart: number;
+  caretEnd: number;
+  indent: number;
+
   constructor(
-    private textArea: HTMLTextAreaElement,
-    private currentText: string,
-    private caretStart: number,
-    private caretEnd: number,
-  ) {}
+    textArea: HTMLTextAreaElement,
+    currentText: string,
+    caretStart: number,
+    caretEnd: number,
+    indent: number,
+  ) {
+    this.textArea = textArea;
+    this.currentText = currentText;
+    this.caretStart = caretStart;
+    this.caretEnd = caretEnd;
+    this.indent = indent;
+  }
+
+  executeEnterAction() {
+    const currentLineIndent = this.getCurrentLineIndentation();
+    const { indent, caretStart } = this;
+
+    if (this.isCaretSurroundedByBracket()) {
+      const newText = this.getNewText(
+        `\n${' '.repeat(currentLineIndent + indent)}\n${' '.repeat(currentLineIndent)}`,
+      );
+      const newCaretPosition = caretStart + 1 + currentLineIndent + indent;
+      this.setNewText(newText, newCaretPosition, newCaretPosition);
+
+      return newText;
+    }
+
+    const newText = this.getNewText(`\n${' '.repeat(currentLineIndent)}`);
+    const newCaretPosition = caretStart + 1 + currentLineIndent;
+    this.setNewText(newText, newCaretPosition, newCaretPosition);
+
+    return newText;
+  }
+
+  executeSpaceAction() {
+    const { caretStart, caretEnd } = this;
+    const newText = this.getNewText(' ');
+
+    this.setNewText(this.getNewText(' '), caretStart + 1, caretEnd + 1);
+
+  return newText;
+  }
+
+  executeTabAction() {
+    const { indent, caretStart, caretEnd } = this;
+    const newText = this.getNewText(' '.repeat(indent));
+
+    this.setNewText(newText, caretStart + indent, caretEnd + indent);
+
+    return newText;
+  }
+
+  executeBracketCloseAction() {
+    const { caretStart, caretEnd } = this;
+
+    this.setCaretPosition(caretStart + 1, caretEnd + 1);
+  }
+
+  executeBracketOpenAction(pushedKey: string) {
+    const { caretStart, caretEnd } = this;
+    const parenthesis = this.getParenthesis(pushedKey);
+    const newText = this.getNewText(parenthesis);
+
+    this.setNewText(newText, caretStart + 1, caretEnd + 1);
+
+    return newText;
+  }
 
   getCurrentLineIndentation() {
     let current = this.caretStart - 1;
