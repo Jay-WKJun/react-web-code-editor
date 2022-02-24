@@ -41,8 +41,9 @@ function CodeEditor({ indent = 2, mode = 'dark', language = 'javascript' }: Code
 	const handleTextChange = useCallback((e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setValue(e.currentTarget.value);
     History.push(e.currentTarget.value);
-		if (textAreaRef.current) {
-			const textAreaElement = textAreaRef.current;
+
+    const textAreaElement = textAreaRef.current;
+		if (textAreaElement) {
 			textAreaElement.style.height = `${textAreaElement.scrollHeight}px`;
 		}
 	}, [textAreaRef]);
