@@ -19,6 +19,7 @@ import {
   Pre,
   Wrapper,
   TextArea,
+  FontWeight,
 } from './styles';
 
 type themeList = keyof typeof themes;
@@ -35,16 +36,20 @@ interface CodeEditorProps {
   language?: lang
   width?: string
   height?: string
+  fontSize?: string
+  fontWeight?: FontWeight
   className?: string
   interpolation?: FlattenSimpleInterpolation
 }
 
 const CodeEditor = forwardRef<HTMLTextAreaElement, CodeEditorProps>(({
   indent = 2,
-  mode = 'dark',
+  mode = 'light',
   language = 'javascript',
   width,
   height,
+  fontSize,
+  fontWeight,
   className,
   interpolation,
 }, ref) => {
@@ -136,6 +141,8 @@ const CodeEditor = forwardRef<HTMLTextAreaElement, CodeEditorProps>(({
       <Wrapper
         width={width}
         height={height}
+        fontSize={fontSize}
+        fontWeight={fontWeight}
         className={className}
         interpolation={interpolation}
       >

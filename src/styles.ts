@@ -2,9 +2,23 @@ import styled, { FlattenSimpleInterpolation } from 'styled-components';
 
 const PADDING_PIXEL = '10px';
 
+export type FontWeight =
+  | '100'
+  | '200'
+  | '300'
+  | '400'
+  | '500'
+  | '600'
+  | '700'
+  | '800'
+  | '900'
+  | 'bold';
+
 interface WrapperProps {
   width?: string
   height?: string
+  fontSize?: string
+  fontWeight?: string
   interpolation?: FlattenSimpleInterpolation
 }
 
@@ -14,8 +28,8 @@ export const Wrapper = styled.div<WrapperProps>`
   min-height: ${(props) => props.height || '200px'};;
 	border: 1px solid black;
 	padding: 0;
-  font-size: 14px;
-  font-weight: 100;
+  font-size: ${(props) => props.fontSize || '14px'};
+  font-weight: ${(props) => props.fontWeight || 'bold'};
   border-radius: ${PADDING_PIXEL};
   color: ${(props) => props.theme.textColor};
   background-color: ${(props) => props.theme.backgroundColor};
@@ -50,10 +64,10 @@ export const TextArea = styled.textarea`
 
 export const Pre = styled.pre`
   position: relative;
-	padding: ${PADDING_PIXEL};
 	width: inherit;
 	height: inherit;
 	margin: 0;
+	padding: ${PADDING_PIXEL};
   overflow: auto;
 	box-sizing: border-box;
   font-size: inherit;
