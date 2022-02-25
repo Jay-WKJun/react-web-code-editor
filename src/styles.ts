@@ -1,5 +1,7 @@
 import styled, { FlattenSimpleInterpolation } from 'styled-components';
 
+const PADDING_PIXEL = '10px';
+
 interface WrapperProps {
   interpolation?: FlattenSimpleInterpolation
 }
@@ -12,6 +14,7 @@ export const Wrapper = styled.div<WrapperProps>`
 	padding: 0;
   font-size: 14px;
   font-weight: 100;
+  border-radius: ${PADDING_PIXEL};
   color: ${(props) => props.theme.textColor};
   background-color: ${(props) => props.theme.backgroundColor};
   caret-color: ${(props) => props.theme.caretColor};
@@ -25,7 +28,7 @@ export const TextArea = styled.textarea`
   left: 0;
 	width: inherit;
 	min-height: inherit;
-	padding: 10px;
+	padding: ${PADDING_PIXEL};
 	border: none;
 	z-index: 1;
 	resize: none;
@@ -45,7 +48,7 @@ export const TextArea = styled.textarea`
 
 export const Pre = styled.pre`
   position: relative;
-	padding: 10px;
+	padding: ${PADDING_PIXEL};
 	width: inherit;
 	height: inherit;
 	margin: 0;
