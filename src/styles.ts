@@ -3,13 +3,15 @@ import styled, { FlattenSimpleInterpolation } from 'styled-components';
 const PADDING_PIXEL = '10px';
 
 interface WrapperProps {
+  width?: string
+  height?: string
   interpolation?: FlattenSimpleInterpolation
 }
 
 export const Wrapper = styled.div<WrapperProps>`
   position: relative;
-  width: 200px;
-  min-height: 200px;
+  width: ${(props) => props.width || '200px'};
+  min-height: ${(props) => props.height || '200px'};;
 	border: 1px solid black;
 	padding: 0;
   font-size: 14px;

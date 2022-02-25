@@ -33,6 +33,8 @@ interface CodeEditorProps {
   indent?: number
   mode?: themeList
   language?: lang
+  width?: string
+  height?: string
   className?: string
   interpolation?: FlattenSimpleInterpolation
 }
@@ -41,6 +43,8 @@ const CodeEditor = forwardRef<HTMLTextAreaElement, CodeEditorProps>(({
   indent = 2,
   mode = 'dark',
   language = 'javascript',
+  width,
+  height,
   className,
   interpolation,
 }, ref) => {
@@ -130,6 +134,8 @@ const CodeEditor = forwardRef<HTMLTextAreaElement, CodeEditorProps>(({
   return (
     <ThemeProvider theme={theme}>
       <Wrapper
+        width={width}
+        height={height}
         className={className}
         interpolation={interpolation}
       >
