@@ -2,7 +2,7 @@
 
 **A Simple and code-style Customizable web code editor with ⚛ React**
 
----example gif---
+![example](./readmeAssets/TextareaExample.gif)
 
 <h3>Try this Code Editor now! in CodeSandBox!</h3>
 
@@ -11,7 +11,7 @@
 **🎉 Type the code just like VSCode**
 
 - 🎨 Automatic Syntax highlighting
-- 🌃 Dark-mode & You can customize syntax hightlight colors!
+- 🌃 Dark-mode & You can customize your own syntax hightlight colors!
 - 🗜 Indent line automatically, and also customizable!
 - 🔒 Automatic parenthesis closing
 - 🗞 Wrap selected text in parens
