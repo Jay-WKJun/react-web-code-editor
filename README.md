@@ -39,7 +39,7 @@ Components designed to be customizable! (and it's keep upgrade to be more custom
 ```typescript
 interface CodeEditorProps {
   indent?: number
-  mode?: themeList
+  theme?: themeList
   language?: lang
   width?: string
   height?: string
@@ -56,7 +56,7 @@ set indent count.
 
 it affects when auto indented (like bracket and enter to new line) or 'tab' to indent some line.
 
-- mode
+- theme
 
 set the code editor theme.
 
