@@ -51,11 +51,6 @@ class TextAreaEditor {
     return newText;
   }
 
-  refreshTextAreaHeight() {
-    this.textArea.style.height = 'auto';
-    this.textArea.style.height = `${this.textArea.scrollHeight}px`;
-  }
-
   executeSpaceAction() {
     const { caretStart, caretEnd } = this;
     const newText = this.getNewText(' ');
@@ -90,7 +85,27 @@ class TextAreaEditor {
     return newText;
   }
 
-  getCurrentLineIndentation() {
+  refreshTextAreaHeight() {
+    this.textArea.style.height = 'auto';
+    this.textArea.style.height = `${this.textArea.scrollHeight}px`;
+  }
+
+  setNewText(text: string, startCaretPosition: number, endCaretPosition: number) {
+    this.textArea.value = text;
+    this.setCaretPosition(startCaretPosition, endCaretPosition);
+  }
+
+  isParenthesisPaired(inputKey: string) {
+    const { currentText, caretStart, caretEnd } = this;
+
+    return (
+      ((currentText[caretStart - 1] && currentText[caretEnd])
+        && this.isCaretSurroundedByBracket(inputKey))
+      || (currentText[caretStart - 1] === inputKey)
+    );
+  }
+
+  private getCurrentLineIndentation() {
     let current = this.caretStart - 1;
     let whiteSpaceCount = 0;
     while (current >= 0) {
@@ -107,44 +122,29 @@ class TextAreaEditor {
     return whiteSpaceCount;
   }
 
-  getNewText(textToInsert: string) {
+  private getNewText(textToInsert: string) {
     const front = this.currentText.substring(0, this.caretStart);
     const back = this.currentText.substring(this.caretEnd);
 
     return `${front}${textToInsert}${back}`;
   }
 
-  setNewText(text: string, startCaretPosition: number, endCaretPosition: number) {
-    this.textArea.value = text;
-    this.setCaretPosition(startCaretPosition, endCaretPosition);
-  }
-
-  setCaretPosition(startCaretPosition: number, endCaretPosition: number) {
+  private setCaretPosition(startCaretPosition: number, endCaretPosition: number) {
     this.textArea.selectionStart = startCaretPosition;
     this.textArea.selectionEnd = endCaretPosition;
   }
 
-  getTextInBracket() {
+  private getTextInBracket() {
     return this.currentText.substring(this.caretStart, this.caretEnd);
   }
 
-  isCaretSurroundedByBracket(parenthsis = this.currentText[this.caretEnd]) {
+  private isCaretSurroundedByBracket(parenthsis = this.currentText[this.caretEnd]) {
     const { currentText, caretStart } = this;
 
     return checkBracketIsPaired(currentText[caretStart - 1], parenthsis);
   }
 
-  isParenthesisPaired(inputKey: string) {
-    const { currentText, caretStart, caretEnd } = this;
-
-    return (
-      ((currentText[caretStart - 1] && currentText[caretEnd])
-        && this.isCaretSurroundedByBracket(inputKey))
-      || (currentText[caretStart - 1] === inputKey)
-    );
-  }
-
-  getParenthesis(key: string) {
+  private getParenthesis(key: string) {
     let parenthesis = '';
     if (this.caretStart !== this.caretEnd) {
       parenthesis = this.getTextInBracket();
