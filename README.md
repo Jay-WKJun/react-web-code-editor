@@ -1,10 +1,11 @@
-# 📇 Simple code editor
+# 📇 React Web Code-editor
 
 **A Simple and code-style Customizable web code editor with ⚛ React**
 
-![example](./readmeAssets/TextareaExample.gif)
-
-<h3>Try this Code Editor now! in CodeSandBox!</h3>
+<div style="display: flex; justify-content: space-between;">
+  <img src=./readmeAssets/demo_darkmode.gif style="width: 47%; border: 1px solid white; border-radius: 5px; box-sizing: border-box;"/>
+  <img src=./readmeAssets/demo_lightmode.gif style="width: 47%; border: 1px solid black; border-radius: 5px; box-sizing: border-box;"/>
+</div>
 
 # ⚙️ Features
 
@@ -21,7 +22,37 @@
 ### install
 
 ```
-$ npm i react-code-editor
+$ npm i react-web-code-editor
+```
+
+### implement & use
+
+```tsx
+import React from 'react';
+import CodeEditor from 'react-web-code-editor';
+
+function App() {
+  return (
+    <div className="App">
+      <header className="App-header">
+        <CodeEditor
+          theme="light"
+          language="javascript"
+          indent={2}
+          width='210px'
+          height='210px'
+          fontSize='14px'
+          fontWeight='bold'
+          className=''
+          ref={null}
+          interpolation={null}
+        />
+      </header>
+    </div>
+  );
+}
+
+export default App;
 ```
 
 # 🙏 Contribute!
