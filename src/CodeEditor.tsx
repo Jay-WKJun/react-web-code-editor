@@ -33,7 +33,7 @@ type lang =
 
 interface CodeEditorProps {
   indent?: number
-  theme?: themeList
+  theme?: themeList | 'light' | 'dark'
   language?: lang
   width?: string
   height?: string
@@ -59,7 +59,7 @@ const CodeEditor = forwardRef<HTMLTextAreaElement, CodeEditorProps>(({
 
   const [value, setValue] = useState('');
 
-  const selectedTheme = useMemo(() => themes[theme], [theme]);
+  const selectedTheme = useMemo(() => themes[theme] || 'light', [theme]);
 
 	const handleTextChange = useCallback((e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const textAreaElement = e.currentTarget;
