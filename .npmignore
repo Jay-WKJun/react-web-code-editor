@@ -1,4 +1,14 @@
 # dev
 dev
 src
+node_modules
+
+# readme
+readmeAssets
+
+# configs
 .gitignore
+.eslintrc
+.babelrc
+tsconfig.json
+webpack.*.js
