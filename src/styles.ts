@@ -24,8 +24,8 @@ interface WrapperProps {
 
 export const Wrapper = styled.div<WrapperProps>`
   position: relative;
-  width: ${(props) => props.width || '200px'};
-  min-height: ${(props) => props.height || '200px'};;
+  width: ${(props) => props.width || '300px'};
+  min-height: ${(props) => props.height || '300px'};;
 	padding: 0;
 	border: 1px solid black;
   box-sizing: border-box;
