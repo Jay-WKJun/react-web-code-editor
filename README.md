@@ -57,9 +57,38 @@ export default App;
 
 # 🙏 Contribute!
 
-## 🎢 Comming up next! v2
+If there are some problems you want to solve in this project,
 
-## 🏋️‍♀️ Version Log
+If you have some ideas of new feature you want to add in this project,
+
+feel free to issue, PR or mail anytime you want.
+
+It would be grateful! 🎉
+
+## Development
+
+Run this project in dev mode.
+
+```
+$ npm start
+```
+
+## 🎢 Plans to Development! v2
+
+I think this Light Editor is just like sticky note. 📑
+
+so, i have plan to develop this code-editor to control easily and to share the code easily.
+
+- Float mode 🛫
+
+  Set this editor can **float around page display.**
+  also, user can **drag & drop** this editor anywhere in display.
+
+- Screeshot 🏞
+
+  User can capture this code editor! also can download captured editor screenshot.
+
+  Share the codes more easily by using screenshot.
 
 # 🗂 Document
 
