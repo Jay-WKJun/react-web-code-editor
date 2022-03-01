@@ -63,7 +63,8 @@ export default App;
 
 # 🗂 Document
 
-Components designed to be customizable! (and it's keep upgrade to be more customizable and comfortable!)
+- **Component props**
+- **How to create custom theme**
 
 ## CodeEditor Component props
 
@@ -81,13 +82,13 @@ interface CodeEditorProps {
 }
 ```
 
-- indent
+### indent
 
 set indent count.
 
 it affects when auto indented (like bracket and enter to new line) or 'tab' to indent some line.
 
-- theme
+### theme
 
 set the code editor theme.
 
@@ -95,27 +96,27 @@ you can use **'light'**, **'dark'** theme in default.
 
 also! you can add your own theme! check below to how to add it!
 
--language
+### language
 
 set the programming language.
 
 syntax hightlight will follow the language you setted.
 
-- width, height
+### width, height
 
 set the code editor's width & height
 
-- fontSize, fontWeight
+### fontSize, fontWeight
 
 set the code editor's fontSize & fontWeight
 
-- className
+### className
 
 set the code editor's className
 
 you can inject your css style by className!
 
-- interpolation
+### interpolation
 
 inject your css created by "styled-componens"
 
