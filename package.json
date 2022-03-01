@@ -10,10 +10,11 @@
     "url": "https://github.com/Jay-WKJun/react-web-code-editor"
   },
   "keywords": [
+    "web-code-editor",
     "codeEditor",
     "React",
-    "editor",
     "code",
+    "editor",
     "customizable",
     "dark-mode",
     "texteditor",
