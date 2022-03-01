@@ -1,12 +1,12 @@
 # dev
-dev
-src
-node_modules
+dev/
+node_modules/
 
 # readme
-readmeAssets
+readmeAssets/
 
 # configs
+.git
 .gitignore
 .eslintrc
 .babelrc
