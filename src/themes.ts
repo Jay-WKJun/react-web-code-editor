@@ -194,8 +194,8 @@ type CssColorLiterals = 'AliceBlue' | 'AntiqueWhite' | 'Aqua' | 'Aquamarine' | '
   | 'SeaShell' | 'Sienna' | 'Silver' | 'SkyBlue' | 'SlateBlue' | 'SlateGray' | 'SlateGrey'
   | 'Snow' | 'SpringGreen' | 'SteelBlue' | 'Tan' | 'Teal' | 'Thistle' | 'Tomato'
   | 'Turquoise' | 'Violet' | 'Wheat' | 'White' | 'WhiteSmoke' | 'Yellow' | 'YellowGreen';
-type HexColorCode = `#${number}`;
-type RGBColorCode = `rgb(${number},${number},${number})`;
+type HexColorCode = `#${string}`;
+type RGBColorCode = `rgb(${number},${number},${number})` | `rgba(${number},${number},${number},${number})`;
 
 interface ThemeProperties {
   backgroundColor: HexColorCode | RGBColorCode | CssColorLiterals
