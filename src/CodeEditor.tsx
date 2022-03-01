@@ -2,7 +2,9 @@ import React, {
   useCallback,
   useState,
   useMemo,
+  useRef,
   forwardRef,
+  useImperativeHandle,
 } from 'react';
 import {
   ThemeProvider,
@@ -14,7 +16,6 @@ import './languages';
 import themes from './themes';
 import History from './History';
 import TextAreaEditor from './TextAreaEditor';
-import useForwardedRef from './useForwardedRef';
 import {
   Pre,
   Wrapper,
@@ -53,7 +54,9 @@ const CodeEditor = forwardRef<HTMLTextAreaElement, CodeEditorProps>(({
   className,
   interpolation,
 }, ref) => {
-  const textAreaRef = useForwardedRef(ref);
+  const textAreaRef = useRef(null);
+  useImperativeHandle<HTMLTextAreaElement, HTMLTextAreaElement>(ref, () => textAreaRef.current!);
+
   const [value, setValue] = useState('');
 
   const selectedTheme = useMemo(() => themes[theme], [theme]);
