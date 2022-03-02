@@ -92,6 +92,12 @@ so, i have plan to develop this code-editor to control easily and to share the c
 
   Share the codes more easily by using screenshot.
 
+## 🏋️ Version up log
+
+version | details
+--- | ---
+v.1.0.5 | Fix '\|' key input bug
+
 # 🗂 Document
 
 - **Component props**
