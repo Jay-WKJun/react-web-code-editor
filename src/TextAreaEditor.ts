@@ -30,6 +30,14 @@ class TextAreaEditor {
     this.indent = indent;
   }
 
+  executeTextInput(text: string) {
+    const { caretStart, caretEnd } = this;
+    const newText = this.getNewText(text);
+    this.setNewText(newText, caretStart + 1, caretEnd + 1);
+
+    return newText;
+  }
+
   executeEnterAction() {
     const currentLineIndent = this.getCurrentLineIndentation();
     const { indent, caretStart } = this;
@@ -90,8 +98,12 @@ class TextAreaEditor {
     this.textArea.style.height = `${this.textArea.scrollHeight}px`;
   }
 
-  setNewText(text: string, startCaretPosition: number, endCaretPosition: number) {
-    this.textArea.value = text;
+  setNewText(
+    text: string,
+    startCaretPosition: number = this.caretStart + 1,
+    endCaretPosition: number = this.caretEnd + 1,
+  ) {
+    this.setValue(text);
     this.setCaretPosition(startCaretPosition, endCaretPosition);
   }
 
@@ -103,6 +115,10 @@ class TextAreaEditor {
         && this.isCaretSurroundedByBracket(inputKey))
       || (currentText[caretStart - 1] === inputKey)
     );
+  }
+
+  private setValue(text: string) {
+    this.textArea.value = text;
   }
 
   private getCurrentLineIndentation() {

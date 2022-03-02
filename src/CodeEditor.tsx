@@ -63,6 +63,7 @@ const CodeEditor = forwardRef<HTMLTextAreaElement, CodeEditorProps>(({
 
 	const handleTextChange = useCallback((e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const textAreaElement = e.currentTarget;
+
     setValue(textAreaElement.value);
     History.push(textAreaElement.value);
 
@@ -94,6 +95,12 @@ const CodeEditor = forwardRef<HTMLTextAreaElement, CodeEditorProps>(({
     }
 
     textAreaEditor.refreshTextAreaHeight();
+
+    if (e.key === '|') {
+      e.preventDefault();
+      setNewText(textAreaEditor.executeTextInput(e.key));
+      return;
+    }
 
     if (e.key === 'Enter') {
       e.preventDefault();
