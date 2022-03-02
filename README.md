@@ -7,7 +7,7 @@
   <img src=./readmeAssets/demo_lightmode.gif style="width: 47%; border: 1px solid black; border-radius: 5px; box-sizing: border-box;"/>
 </div>
 
-### you can Try this on now! in [CodeSandBox!]('https://codesandbox.io/s/fervent-albattani-r7yiz7')
+### you can Try this on now! in [CodeSandBox!](https://codesandbox.io/s/fervent-albattani-r7yiz7)
 
 # ⚙️ Features
 
