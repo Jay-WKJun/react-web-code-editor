@@ -54,7 +54,7 @@ const CodeEditor = forwardRef<HTMLTextAreaElement, CodeEditorProps>(({
   className,
   interpolation,
 }, ref) => {
-  const textAreaRef = useRef(null);
+  const textAreaRef = useRef<HTMLTextAreaElement>(null);
   useImperativeHandle<HTMLTextAreaElement, HTMLTextAreaElement>(ref, () => textAreaRef.current!);
 
   const [value, setValue] = useState('');
