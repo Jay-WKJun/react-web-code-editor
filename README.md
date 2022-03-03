@@ -1,4 +1,4 @@
-# 📇 React Web Code-editor
+# 🧑‍💻 React Web Code-editor
 
 **A Simple and code-style Customizable web code editor with ⚛ React**
 
