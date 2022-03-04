@@ -9,6 +9,8 @@
 
 ### you can Try this on now! in [CodeSandBox!](https://codesandbox.io/s/fervent-albattani-r7yiz7)
 
+**support React version >= 17**
+
 # ⚙️ Features
 
 **🎉 Type the code just like VSCode**
