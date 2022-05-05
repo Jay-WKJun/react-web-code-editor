@@ -6,3 +6,6 @@
 
 # build stuff
 /dist
+
+# statistics for bundle
+stats.html
