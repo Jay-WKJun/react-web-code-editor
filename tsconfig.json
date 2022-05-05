@@ -15,6 +15,7 @@
 		"allowSyntheticDefaultImports": true,
 		"jsx": "react",
     "declaration": true,
+    "declarationDir": "dist",
 		"baseUrl": ".",
 		"paths": {
 			"@/*": ["src/*"],
@@ -23,5 +24,8 @@
 	},
 	"exclude": [
 		"node_modules",
+    "dev",
+    "*.config.js",
+    "dist"
 	]
 }
