@@ -1,6 +1,9 @@
 # dev
 dev/
 node_modules/
+src/
+stats.html
+index.ts
 
 # readme
 readmeAssets/
@@ -9,6 +12,8 @@ readmeAssets/
 .git
 .gitignore
 .eslintrc
+.eslintignore
 .babelrc
 tsconfig.json
 webpack.*.js
+rollup.config.js
