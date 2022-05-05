@@ -9,7 +9,7 @@ import typescript from 'rollup-plugin-typescript2';
 const extensions = ['.js', '.jsx', '.ts', '.tsx'];
 
 const inputSrc = [
-  ['./index.ts', 'esm'],
+  ['./index.ts', 'es'],
   ['./index.ts', 'cjs'],
 ];
 
