@@ -10,7 +10,7 @@ import {
   ThemeProvider,
   FlattenSimpleInterpolation,
 } from 'styled-components';
-import { highlight, languages } from 'prismjs/prism';
+import { highlight, languages } from 'prismjs';
 import './languages';
 
 import themes from './themes';
@@ -167,12 +167,14 @@ const CodeEditor = forwardRef<HTMLTextAreaElement, CodeEditorProps>(({
           onKeyDown={handleKeyDown}
         />
         { /* @ts-ignore */ }
-        <Pre dangerouslySetInnerHTML={{ __html: highlight(
+        <Pre dangerouslySetInnerHTML={{
+          __html: highlight(
             value,
             /* @ts-ignore */
             languages[language],
             language,
-          )}}
+          ),
+        }}
         />
       </Wrapper>
     </ThemeProvider>

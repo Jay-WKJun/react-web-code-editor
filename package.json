@@ -1,13 +1,13 @@
 {
   "name": "react-web-code-editor",
-  "version": "1.0.5",
+  "version": "1.1.0",
   "private": false,
   "description": "A Simple and code-style Customizable web code editor with React",
   "author": "Woo KyungJun <natcho9010@gmail.com>",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Jay-WKJun/react-web-code-editor"
+    "url": "https://github.com/Jay-WKJun/react-web-code-editor.git"
   },
   "homepage": "https://github.com/Jay-WKJun/react-web-code-editor",
   "keywords": [
@@ -22,46 +22,54 @@
     "textarea"
   ],
   "scripts": {
-    "start": "webpack serve --open --config webpack.dev.js",
-    "build": "webpack --config webpack.prod.js && tsc"
+    "build": "rollup -c rollup.config.js"
   },
-  "main": "dist/index.js",
-  "module": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "dist/cjs/index.js",
+  "module": "dist/es/index.js",
+  "exports": {
+    "import": "./dist/es/index.js",
+    "require": "./dist/cjs/index.js"
+  },
   "dependencies": {
-    "prismjs": ">=1.26.0",
-    "react": ">=17.0.2",
-    "styled-components": ">=5.3.3"
+    "@babel/runtime": "^7.17.9",
+    "prismjs": ">=1.26.0"
   },
   "devDependencies": {
+    "@babel/plugin-transform-runtime": "^7.17.10",
     "@babel/preset-env": "^7.16.8",
     "@babel/preset-react": "^7.16.7",
     "@babel/preset-typescript": "^7.16.7",
+    "@rollup/plugin-babel": "^5.3.1",
+    "@rollup/plugin-commonjs": "^22.0.0",
+    "@rollup/plugin-node-resolve": "^13.3.0",
     "@types/prismjs": "^1.16.7",
     "@types/react": "^17.0.38",
     "@types/react-dom": "^17.0.11",
     "@types/styled-components": "^5.1.20",
     "@typescript-eslint/eslint-plugin": "^5.9.1",
     "@typescript-eslint/parser": "^5.9.1",
-    "babel-loader": "^8.2.3",
     "babel-plugin-styled-components": "^2.0.2",
-    "clean-webpack-plugin": "^4.0.0",
-    "css-loader": "^6.5.1",
     "eslint": "^8.6.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-import-resolver-typescript": "^2.5.0",
     "eslint-plugin-import": "^2.25.4",
-    "html-webpack-plugin": "^5.5.0",
+    "rollup": "^2.71.1",
+    "rollup-plugin-babel": "^4.4.0",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "rollup-plugin-postcss": "^4.0.2",
+    "rollup-plugin-typescript2": "^0.31.2",
+    "rollup-plugin-visualizer": "^5.6.0",
+    "tslib": "^2.4.0",
+    "typescript": "^4.5.4"
+  },
+  "peerDependencies": {
+    "react": ">=17.0.2",
     "react-dom": ">=17.0.2",
-    "style-loader": "^3.3.1",
-    "ts-loader": "^9.2.6",
-    "typescript": "^4.5.4",
-    "webpack": "^5.66.0",
-    "webpack-cli": "^4.9.1",
-    "webpack-dev-server": "^4.7.3"
+    "styled-components": ">=5.3.3"
   },
   "files": [
-    "dist",
-    "src"
+    "dist"
   ]
 }

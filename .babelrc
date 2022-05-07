@@ -4,9 +4,8 @@
 		"@babel/preset-react",
 		"@babel/preset-typescript"
 	],
-	"env": {
-		"develop": {
-			"plugins": ["babel-plugin-styled-components"]
-		}
-	}
+  "plugins": [
+    ["@babel/plugin-transform-runtime"],
+    ["babel-plugin-styled-components"]
+  ]
 }

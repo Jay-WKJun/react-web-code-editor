@@ -99,6 +99,7 @@ so, i have plan to develop this code-editor to control easily and to share the c
 version | details
 --- | ---
 v.1.0.5 | Fix '\|' key input bug
+v.1.1.0 | Change Bundler to rollup to make bundle lighter & support tree-shaking for user
 
 # 🗂 Document
 
