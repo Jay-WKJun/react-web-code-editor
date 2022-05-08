@@ -2,9 +2,9 @@ import babel from '@rollup/plugin-babel';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
-import postcss from 'rollup-plugin-postcss';
 import { visualizer } from 'rollup-plugin-visualizer';
 import typescript from 'rollup-plugin-typescript2';
+import { terser } from "rollup-plugin-terser";
 
 const extensions = ['.js', '.jsx', '.ts', '.tsx'];
 
@@ -19,14 +19,13 @@ export default inputSrc
     output: {
       dir: `dist/${format}`,
       format,
-      globals: {
-        CodeEditor: 'CodeEditor',
-      },
       name: 'CodeEditor',
       preserveModules: true,
+      exports: 'named',
     },
     external: [/@babel\/runtime/],
     plugins: [
+      peerDepsExternal(),
       nodeResolve({
         extensions,
       }),
@@ -45,8 +44,7 @@ export default inputSrc
         exclude: '**/node_modules/**',
         extensions,
       }),
-      peerDepsExternal(),
-      postcss(),
+      terser(),
       visualizer({
         filename: 'stats.html',
       }),
