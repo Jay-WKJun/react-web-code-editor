@@ -2,6 +2,8 @@
 
 **A Simple and code-style Customizable web code editor with ⚛ React**
 
+<img src="https://img.shields.io/npm/dt/react-web-code-editor?logo=react&style=plastic" />
+
 <div style="display: flex; justify-content: space-between;">
   <img src=./readmeAssets/demo_darkmode.gif style="width: 47%; border: 1px solid white; border-radius: 5px; box-sizing: border-box;"/>
   <img src=./readmeAssets/demo_lightmode.gif style="width: 47%; border: 1px solid black; border-radius: 5px; box-sizing: border-box;"/>
